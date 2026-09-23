@@ -1,0 +1,106 @@
+// src/components/sections/TimelineSection.jsx
+// -----------------------------------------------------------------------------
+// KEY REUSE PATTERN: this single component renders BOTH the Experience
+// section AND the Education section on the Portfolio page. It accepts one
+// `data` prop — the full section object from portfolio.json (shape:
+// { sectionNum, sectionName, items: [{ id, title, company, companyUrl,
+// dateRange, description }] }) — and renders the same timeline UI (red
+// circle marker, vertical connector line, title, date, company + external
+// link icon, description) regardless of which data it's given. The caller
+// decides which data to pass:
+//   <TimelineSection data={experience} />   // Column 1
+//   <TimelineSection data={education} />    // Column 4
+// There is no experience-specific or education-specific branching inside
+// this component — that's the whole point of the reuse: one component, two
+// call sites, two different JSON payloads.
+//
+// Props:
+//   data (object) — a section object shaped like above
+// -----------------------------------------------------------------------------
+import PropTypes from 'prop-types'
+import { ExternalLink } from 'lucide-react'
+import { motion, useReducedMotion } from 'framer-motion'
+import SectionLabel from '../ui/SectionLabel'
+import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+
+function TimelineSection({ data }) {
+  // Skips the fade/slide-up animation entirely when the user's OS is set to
+  // prefer reduced motion, so each entry just appears instead of animating.
+  const shouldReduceMotion = useReducedMotion()
+
+  return (
+    <div className="space-y-4 p-6">
+      <SectionLabel num={data.sectionNum} name={data.sectionName} />
+
+      {/* The vertical connector line is a single border-l on this wrapper
+          (rather than a separate line element per entry) — every entry's
+          red dot is then absolutely positioned to sit exactly on that one
+          continuous line. */}
+      <div className="space-y-6 border-l border-border pl-5">
+        {data.items.map((item, index) => (
+          <motion.div
+            key={item.id}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: ANIMATION_DURATION,
+              delay: index * STAGGER_DELAY,
+            }}
+            className="relative space-y-1"
+          >
+            {/* The red circle marker, offset left so its center lands on
+                the wrapper's border-l line (pl-5 = 20px + half the dot's
+                own width = 24px, i.e. -left-6). */}
+            <span className="absolute -left-6 top-1.5 h-2 w-2 rounded-full bg-red" />
+
+            <div className="flex items-baseline justify-between gap-2">
+              <h3 className="text-base font-medium text-chalk">
+                {item.title}
+              </h3>
+              {/* Date range uses the same red as SectionLabel's numeral, so
+                  the two "meta" accents in this column read as one system. */}
+              <span className="flex-shrink-0 text-sm text-red">
+                {item.dateRange}
+              </span>
+            </div>
+
+            <a
+              href={item.companyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-chalk-dim transition-colors hover:text-red"
+            >
+              {item.company}
+              <ExternalLink size={10} strokeWidth={1.75} />
+            </a>
+
+            {item.description && (
+              <p className="text-sm leading-relaxed text-chalk-dim">
+                {item.description}
+              </p>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+TimelineSection.propTypes = {
+  data: PropTypes.shape({
+    sectionNum: PropTypes.string.isRequired,
+    sectionName: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        company: PropTypes.string.isRequired,
+        companyUrl: PropTypes.string.isRequired,
+        dateRange: PropTypes.string.isRequired,
+        description: PropTypes.string,
+      }),
+    ).isRequired,
+  }).isRequired,
+}
+
+export default TimelineSection

@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "name": "MD. Fazle Rabbi Riyad",
+    "role": "Backend Engineer",
+    "availability": "Available for select projects",
+    "location": "Dhaka, Bangladesh",
+    "email": "riyad.cse27@gmail.com",
+    "phone": "+880-161-2168868",
+    "footerTagline": "Open to building something useful."
+  },
+  "socialLinks": [
+    { "id": "email", "label": "Email", "href": "mailto:riyad.cse27@gmail.com", "icon": "Mail" },
+    { "id": "github", "label": "GitHub", "href": "https://github.com/riyadSheikh27", "icon": "Github" },
+    { "id": "linkedin", "label": "LinkedIn", "href": "https://linkedin.com", "icon": "Linkedin" },
+    { "id": "codeforces", "label": "CF", "href": "https://codeforces.com", "icon": null }
+  ],
+  "intro": {
+    "sectionNum": "01",
+    "sectionName": "Introduction",
+    "body": "Backend-focused engineer turning complex requirements into dependable APIs, data systems, and cloud infrastructure. I care about clarity, performance, and code that remains understandable long after launch."
+  },
+  "experience": {
+    "sectionNum": "02",
+    "sectionName": "Experience",
+    "items": [
+      {
+        "id": "exp-1",
+        "title": "Senior Backend Engineer",
+        "company": "TechVenture Ltd.",
+        "companyUrl": "https://example.com",
+        "dateRange": "2023 — Present",
+        "description": "Leading API architecture, background processing, and infrastructure for products used across multiple markets."
+      },
+      {
+        "id": "exp-2",
+        "title": "Backend Engineer",
+        "company": "Nimbus Software",
+        "companyUrl": "https://example.com",
+        "dateRange": "2021 — 2023",
+        "description": "Built and shipped payment, notification, and reporting services on Django and FastAPI."
+      },
+      {
+        "id": "exp-3",
+        "title": "Junior Developer",
+        "company": "CodeForge BD",
+        "companyUrl": "https://example.com",
+        "dateRange": "2020 — 2021",
+        "description": "Maintained internal tools and REST APIs for a small product team."
+      }
+    ]
+  },
+  "skills": {
+    "sectionNum": "03",
+    "sectionName": "Skills",
+    "items": [
+      { "id": "sk-1", "category": "Languages", "values": "Python, JavaScript, TypeScript, SQL" },
+      { "id": "sk-2", "category": "Frameworks", "values": "Django, DRF, FastAPI, React.js" },
+      { "id": "sk-3", "category": "Databases", "values": "PostgreSQL, MySQL, SQLite, MongoDB, Redis" },
+      { "id": "sk-4", "category": "Infrastructure", "values": "Docker, AWS, CI/CD, Nginx, Gunicorn, VPS" },
+      { "id": "sk-5", "category": "Async", "values": "Celery, Kafka, WebSocket, Django Channels" },
+      { "id": "sk-6", "category": "Systems", "values": "REST APIs, System Design, Microservices, SOLID, GraphQL" },
+      { "id": "sk-7", "category": "Tools", "values": "Git, Swagger, Postman, Stripe, SSLCommerz, PayPal" }
+    ]
+  },
+  "competitiveProgramming": {
+    "sectionNum": "04",
+    "sectionName": "Competitive Programming",
+    "items": [
+      { "id": "cp-1", "text": "Codeforces — Highest Rating 1182, 550+ Problems Solved" },
+      { "id": "cp-2", "text": "LeetCode — riyadSheikh27, focused on time & space complexity" },
+      { "id": "cp-3", "text": "MIST Hackathon 2025 — Team GreenGalaxy" },
+      { "id": "cp-4", "text": "Organizing Committee, 2022 ICPC Asia Dhaka Regional Contest" }
+    ]
+  },
+  "projects": {
+    "sectionNum": "05",
+    "sectionName": "Projects",
+    "items": [
+      {
+        "id": "proj-1",
+        "number": "01",
+        "name": "Relay",
+        "type": "Real-Time Logistics Platform",
+        "description": "Event-driven delivery tracking with resilient queues, live status updates, and an operations dashboard.",
+        "stack": "FastAPI · Redis · PostgreSQL",
+        "url": "https://github.com/riyadSheikh27"
+      },
+      {
+        "id": "proj-2",
+        "number": "02",
+        "name": "Ledger",
+        "type": "Multi-Tenant Billing System",
+        "description": "Subscription billing engine with usage metering, invoicing, and third-party payment gateway integration.",
+        "stack": "Django · DRF · Celery · Stripe",
+        "url": "https://github.com/riyadSheikh27"
+      },
+      {
+        "id": "proj-3",
+        "number": "03",
+        "name": "Signal",
+        "type": "Notification Fan-Out Service",
+        "description": "Unified notification pipeline routing email, SMS, and push events through a single async API.",
+        "stack": "FastAPI · Kafka · Docker",
+        "url": "https://github.com/riyadSheikh27"
+      }
+    ]
+  },
+  "education": {
+    "sectionNum": "06",
+    "sectionName": "Education",
+    "items": [
+      {
+        "id": "edu-1",
+        "title": "B.Sc. in Computer Science & Engineering",
+        "company": "MIST, Dhaka",
+        "companyUrl": "https://mist.ac.bd",
+        "dateRange": "2021 — Present",
+        "description": null
+      }
+    ]
+  },
+  "writing": {
+    "sectionNum": "07",
+    "sectionName": "Writing",
+    "items": [
+      {
+        "id": "wr-1",
+        "title": "On building systems that last",
+        "body": "The hardest part of backend engineering is not writing the feature — it is writing it in a way your future self will still understand at 2am during an incident."
+      },
+      {
+        "id": "wr-2",
+        "title": "Queues over cron jobs",
+        "body": "Cron jobs are easy until they overlap. A durable queue turns 'run this later' into a guarantee instead of a hope."
+      }
+    ]
+  }
+}

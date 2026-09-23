@@ -1,0 +1,46 @@
+/* src/styles/index.css
+ * ---------------------------------------------------------------------------
+ * The ONLY hand-written CSS file in the project. Everything else is styled
+ * with Tailwind utility classes. This file exists only for:
+ *   1. Pulling in Tailwind's base/components/utilities layers.
+ *   2. One global rule that can't be expressed as a Tailwind class on a
+ *      per-element basis: locking body scroll on desktop, because the
+ *      Portfolio page implements its own horizontal-scroll behavior instead
+ *      (see useIsMobile + Portfolio.jsx's wheel-event handler).
+ *   3. A `.scrollbar-thin` utility for the Portfolio page's horizontal
+ *      scrollbar. Tailwind v3 has no built-in scrollbar-width/appearance
+ *      utilities, and browsers only expose this via the non-standard
+ *      `::-webkit-scrollbar-*` pseudo-elements (Chrome/Safari) or the
+ *      `scrollbar-width` property (Firefox), neither of which can be
+ *      expressed as a one-off Tailwind class.
+ * --------------------------------------------------------------------------- */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+  /* Vertical scroll is disabled by default because the desktop Portfolio
+     layout scrolls horizontally instead. On mobile, useIsMobile switches
+     the layout to `overflow-y-auto` inline, which overrides this. */
+  overflow: hidden;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin; /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px; /* Chrome/Safari/Edge — slim horizontal scrollbar track */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background-color: transparent;
+}
