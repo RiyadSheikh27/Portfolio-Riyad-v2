@@ -18,3 +18,4 @@ export const competitiveProgramming = portfolioData.competitiveProgramming
 export const projects = portfolioData.projects
 export const education = portfolioData.education
 export const writing = portfolioData.writing
+export const publications = portfolioData.publications

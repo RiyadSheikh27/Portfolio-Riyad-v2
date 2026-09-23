@@ -24,8 +24,8 @@ body,
 #root {
   height: 100%;
   /* Vertical scroll is disabled by default because the desktop Portfolio
-     layout scrolls horizontally instead. On mobile, useIsMobile switches
-     the layout to `overflow-y-auto` inline, which overrides this. */
+     layout scrolls horizontally instead. On mobile, Portfolio.jsx renders
+     an `h-full overflow-y-auto` wrapper that scrolls vertically itself. */
   overflow: hidden;
 }
 

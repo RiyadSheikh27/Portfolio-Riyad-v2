@@ -1,34 +1,35 @@
 // src/pages/Portfolio.jsx
 // -----------------------------------------------------------------------------
-// STUB — the full horizontal 4-column layout, wheel-to-horizontal-scroll
-// handling, mobile stacking, and Framer Motion stagger animations will be
-// built in the next session. For now this renders the four columns using
-// the (stubbed) section components so the routing + layout skeleton is
-// already wired up and visually verifiable.
+// The main page: a horizontally scrolling, newspaper-style column layout on
+// desktop, and a simple vertical stack on mobile.
 //
-// Planned column layout (desktop, left to right):
+// Content order (desktop flows it left to right, column by column):
 //   Col 1 — IntroSection + TimelineSection(experience)
-//   Col 2 — SkillsSection + CPSection
+//   Col 2 — SkillsSection + CPSection + TimelineSection(education)
 //   Col 3 — ProjectsSection
-//   Col 4 — TimelineSection(education) + WritingSection
+//   Col 4 — PublicationsSection + WritingSection
 // On mobile (useIsMobile), columns will stack vertically with Dividers
 // between them instead of sitting side by side.
 //
-// Desktop column widths are responsive fractions of the viewport rather
-// than a fixed pixel width, so the number of columns visible without
-// scrolling shrinks gracefully as the window narrows: 3 columns fit at lg
-// and up, 2 fit at the default (md-and-up, since <768px switches to the
-// mobile branch entirely). Whatever doesn't fit is still reachable via
-// horizontal scroll.
+// Desktop uses CSS multi-column layout (`columns-2 lg:columns-3`) with a
+// fixed height, so when a column runs out of vertical space its text FLOWS
+// into the next column instead of being clipped — the browser adds extra
+// overflow columns to the right as needed, reachable via horizontal
+// scroll. Sections flow continuously (the next one starts right where
+// the previous ends, no forced column breaks), while individual entries
+// (a job, a project, a skill row…) use `break-inside-avoid` inside their
+// section components so a single entry is never split across two columns.
 // -----------------------------------------------------------------------------
 import { useEffect, useRef } from 'react'
 import { useIsMobile } from '../hooks/useIsMobile'
+import { useColumnDividers } from '../hooks/useColumnDividers'
 import IntroSection from '../components/sections/IntroSection'
 import TimelineSection from '../components/sections/TimelineSection'
 import SkillsSection from '../components/sections/SkillsSection'
 import CPSection from '../components/sections/CPSection'
 import ProjectsSection from '../components/sections/ProjectsSection'
 import WritingSection from '../components/sections/WritingSection'
+import PublicationsSection from '../components/sections/PublicationsSection'
 import Divider from '../components/ui/Divider'
 import { experience, education } from '../api'
 
@@ -41,6 +42,12 @@ function Portfolio() {
   // (vertical) mouse-wheel input into horizontal scrolling, since the whole
   // point of this layout is that it scrolls sideways, not down.
   const scrollRef = useRef(null)
+
+  // The multi-column element inside the scroller, measured by
+  // useColumnDividers so a wavy divider can be drawn at every column edge
+  // (including overflow columns the browser created on its own).
+  const columnsRef = useRef(null)
+  const dividers = useColumnDividers(columnsRef, !isMobile)
 
   useEffect(() => {
     // Side effect: attach a native wheel listener (rather than React's
@@ -61,9 +68,8 @@ function Portfolio() {
     return () => node.removeEventListener('wheel', handleWheel)
   }, [isMobile])
 
-  // Each column has a stable id (rather than relying on array index) so
-  // React's reconciliation/key warnings stay clean even though the content
-  // is currently a stub.
+  // Each column group has a stable id (rather than relying on array index)
+  // so React's reconciliation/key warnings stay clean.
   const columns = [
     {
       id: 'col-intro-experience',
@@ -75,20 +81,21 @@ function Portfolio() {
       ),
     },
     {
-      id: 'col-skills-cp',
+      id: 'col-skills-cp-education',
       content: (
         <>
           <SkillsSection />
           <CPSection />
+          <TimelineSection data={education} />
         </>
       ),
     },
     { id: 'col-projects', content: <ProjectsSection /> },
     {
-      id: 'col-education-writing',
+      id: 'col-publications-writing',
       content: (
         <>
-          <TimelineSection data={education} />
+          <PublicationsSection />
           <WritingSection />
         </>
       ),
@@ -97,7 +104,11 @@ function Portfolio() {
 
   if (isMobile) {
     return (
-      <div className="h-auto overflow-y-auto">
+      // h-full (not h-auto) is what makes this scroll: body/#root have
+      // overflow hidden (see styles/index.css), so the wrapper must be
+      // capped at <main>'s height for overflow-y-auto to kick in —
+      // otherwise the content just spills out under the footer.
+      <div className="h-full overflow-y-auto">
         {columns.map((col, i) => (
           <div key={col.id}>
             {col.content}
@@ -111,19 +122,33 @@ function Portfolio() {
   return (
     <div
       ref={scrollRef}
-      className="scrollbar-thin flex h-full w-full overflow-x-auto overflow-y-hidden"
+      className="scrollbar-thin relative h-full w-full overflow-x-auto overflow-y-hidden"
     >
-      {columns.map((col) => (
+      {/* column-fill: auto fills each column top-to-bottom before moving on
+          (the default, `balance`, would spread content evenly instead).
+          Tailwind has no utility for it, hence the arbitrary property. */}
+      <div
+        ref={columnsRef}
+        className="h-full w-full columns-2 gap-0 [column-fill:auto] lg:columns-3"
+      >
+        {columns.map((col) => (
+          <div key={col.id}>{col.content}</div>
+        ))}
+      </div>
+
+      {/* The vertical divider at the right edge of every column is a
+          `bg-wavy-border` tile (a repeating hand-drawn squiggle SVG
+          registered in tailwind.config.js) instead of a straight rule, so
+          columns read as hand-separated rather than ruled off. Positions
+          come from useColumnDividers; the inline style is unavoidable here
+          because they're measured at runtime. */}
+      {Array.from({ length: dividers.count }, (_, i) => (
         <div
-          key={col.id}
-          // The vertical divider between columns is a `bg-wavy-border`
-          // tile (a repeating hand-drawn squiggle SVG registered in
-          // tailwind.config.js) instead of a straight `border-r`, so
-          // columns read as hand-separated rather than ruled off.
-          className="h-full w-1/2 flex-shrink-0 overflow-hidden bg-wavy-border bg-right bg-repeat-y bg-[length:10px_28px] lg:w-1/3"
-        >
-          {col.content}
-        </div>
+          key={i}
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 h-full w-2.5 bg-wavy-border bg-right bg-repeat-y bg-[length:10px_28px]"
+          style={{ left: (i + 1) * dividers.width - 10 }}
+        />
       ))}
     </div>
   )

@@ -24,7 +24,7 @@ function SkillsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6">
+    <div className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel num={skills.sectionNum} name={skills.sectionName} />
       <div className="space-y-2.5">
         {skills.items.map((item, index) => (
@@ -36,18 +36,20 @@ function SkillsSection() {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
-            className="flex items-baseline gap-3"
+            className="flex break-inside-avoid items-baseline"
           >
             {/* Fixed-width label column — every row's value column starts
                 at the exact same x position no matter how long the
                 category name is. whitespace-nowrap guarantees the longest
                 category ("Infrastructure") never wraps onto a second line
-                and throws that alignment off. */}
-            <span className="w-44 flex-shrink-0 whitespace-nowrap text-base text-chalk-faint">
+                and throws that alignment off. It's narrower on phones
+                (w-36 still fits "— Infrastructure") to leave the values
+                more room. */}
+            <span className="w-36 flex-shrink-0 whitespace-nowrap md:w-44 text-base text-white">
               <span className="text-red">— </span>
               {item.category}
             </span>
-            <span className="text-base leading-relaxed text-chalk-dim">
+            <span className="text-sm leading-relaxed text-chalk-dim">
               {item.values}
             </span>
           </motion.div>

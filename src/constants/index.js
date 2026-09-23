@@ -17,3 +17,8 @@ export const ANIMATION_DURATION = 0.4
 // Per-item stagger delay (seconds) used when animating a list of columns or
 // timeline entries so they appear one after another instead of all at once.
 export const STAGGER_DELAY = 0.08
+
+// Seconds of stillness between each "attention" nudge on the footer's
+// Let's talk call-to-action (the nudge itself lasts ATTENTION_DURATION).
+export const ATTENTION_INTERVAL = 3
+export const ATTENTION_DURATION = 0.8

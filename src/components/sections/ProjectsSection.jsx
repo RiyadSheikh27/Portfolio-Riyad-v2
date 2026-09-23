@@ -1,6 +1,6 @@
 // src/components/sections/ProjectsSection.jsx
 // -----------------------------------------------------------------------------
-// Renders the "05 Projects" block: a SectionLabel followed by one entry per
+// Renders the "06 Projects" block: a SectionLabel followed by one entry per
 // project — its number, name (linking out to `url`), type, description, and
 // its stack string split into individual Tag chips. Data comes from
 // src/api/index.js's `projects` export — never hardcoded here. Lives alone
@@ -19,7 +19,7 @@ function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6 p-6 box-decoration-clone">
       <SectionLabel num={projects.sectionNum} name={projects.sectionName} />
 
       <div className="space-y-6">
@@ -32,7 +32,7 @@ function ProjectsSection() {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
-            className="space-y-2"
+            className="break-inside-avoid space-y-2"
           >
             <div className="flex items-baseline gap-2">
               <span className="text-sm text-red">{item.number}</span>

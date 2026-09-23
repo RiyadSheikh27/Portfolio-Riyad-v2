@@ -9,7 +9,7 @@
 // link icon, description) regardless of which data it's given. The caller
 // decides which data to pass:
 //   <TimelineSection data={experience} />   // Column 1
-//   <TimelineSection data={education} />    // Column 4
+//   <TimelineSection data={education} />    // Column 2, below CPSection
 // There is no experience-specific or education-specific branching inside
 // this component — that's the whole point of the reuse: one component, two
 // call sites, two different JSON payloads.
@@ -29,7 +29,7 @@ function TimelineSection({ data }) {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6">
+    <div className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel num={data.sectionNum} name={data.sectionName} />
 
       {/* The vertical connector line is a single border-l on this wrapper
@@ -46,7 +46,7 @@ function TimelineSection({ data }) {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
-            className="relative space-y-1"
+            className="relative break-inside-avoid space-y-1"
           >
             {/* The red circle marker, offset left so its center lands on
                 the wrapper's border-l line (pl-5 = 20px + half the dot's
@@ -57,18 +57,21 @@ function TimelineSection({ data }) {
               <h3 className="text-base font-medium text-chalk">
                 {item.title}
               </h3>
-              {/* Date range uses the same red as SectionLabel's numeral, so
-                  the two "meta" accents in this column read as one system. */}
-              <span className="flex-shrink-0 text-sm text-red">
+              {/* Date range uses the same muted color as the description,
+                  so it reads as secondary info next to the title. */}
+              <span className="flex-shrink-0 text-xs text-chalk-dim">
                 {item.dateRange}
               </span>
             </div>
 
+            {/* Company / school name uses the same red as SectionLabel's
+                numeral, so the red accents in this column read as one
+                system. Hover brightens it to chalk as the link affordance. */}
             <a
               href={item.companyUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-chalk-dim transition-colors hover:text-red"
+              className="inline-flex items-center gap-1 text-sm text-red transition-colors hover:text-chalk"
             >
               {item.company}
               <ExternalLink size={10} strokeWidth={1.75} />

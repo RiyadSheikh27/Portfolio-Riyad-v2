@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "MD. Fazle Rabbi Riyad",
-    "role": "Backend Engineer",
+    "role": "Full-Stack Software Engineer",
     "availability": "Available for select projects",
     "location": "Dhaka, Bangladesh",
     "email": "riyad.cse27@gmail.com",
@@ -10,6 +10,7 @@
   },
   "socialLinks": [
     { "id": "email", "label": "Email", "href": "mailto:riyad.cse27@gmail.com", "icon": "Mail" },
+    { "id": "whatsapp", "label": "WhatsApp", "href": "https://wa.me/8801612168868", "icon": "WhatsApp" },
     { "id": "github", "label": "GitHub", "href": "https://github.com/riyadSheikh27", "icon": "Github" },
     { "id": "linkedin", "label": "LinkedIn", "href": "https://linkedin.com", "icon": "Linkedin" },
     { "id": "codeforces", "label": "CF", "href": "https://codeforces.com", "icon": null }
@@ -17,7 +18,8 @@
   "intro": {
     "sectionNum": "01",
     "sectionName": "Introduction",
-    "body": "Backend-focused engineer turning complex requirements into dependable APIs, data systems, and cloud infrastructure. I care about clarity, performance, and code that remains understandable long after launch."
+    "body": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to make dummy text for Letraset's Body Type sheets. It has survived not only many decades, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised thanks to these sheets and more recently with desktop publishing software like Aldus PageMaker and Microsoft Word including versions of Lorem Ipsum.",
+    "quote": "Simple systems, built carefully, outlast clever ones."
   },
   "experience": {
     "sectionNum": "02",
@@ -29,7 +31,7 @@
         "company": "TechVenture Ltd.",
         "companyUrl": "https://example.com",
         "dateRange": "2023 — Present",
-        "description": "Leading API architecture, background processing, and infrastructure for products used across multiple markets."
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966."
       },
       {
         "id": "exp-2",
@@ -37,7 +39,7 @@
         "company": "Nimbus Software",
         "companyUrl": "https://example.com",
         "dateRange": "2021 — 2023",
-        "description": "Built and shipped payment, notification, and reporting services on Django and FastAPI."
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966."
       },
       {
         "id": "exp-3",
@@ -45,7 +47,7 @@
         "company": "CodeForge BD",
         "companyUrl": "https://example.com",
         "dateRange": "2020 — 2021",
-        "description": "Maintained internal tools and REST APIs for a small product team."
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966."
       }
     ]
   },
@@ -73,7 +75,7 @@
     ]
   },
   "projects": {
-    "sectionNum": "05",
+    "sectionNum": "06",
     "sectionName": "Projects",
     "items": [
       {
@@ -106,32 +108,64 @@
     ]
   },
   "education": {
-    "sectionNum": "06",
+    "sectionNum": "05",
     "sectionName": "Education",
     "items": [
       {
         "id": "edu-1",
         "title": "B.Sc. in Computer Science & Engineering",
-        "company": "MIST, Dhaka",
+        "company": "Green University of Bangladesh, Dhaka",
         "companyUrl": "https://mist.ac.bd",
-        "dateRange": "2021 — Present",
+        "dateRange": "2021 — 2025",
+        "description": null
+      },
+      {
+        "id": "edu-2",
+        "title": "Higher Secondary Certificate (HSC)",
+        "company": "hajiganj Model Govt. Collage, Chandpur",
+        "companyUrl": "https://mist.ac.bd",
+        "dateRange": "2018 — 2020",
         "description": null
       }
     ]
   },
   "writing": {
-    "sectionNum": "07",
+    "sectionNum": "08",
     "sectionName": "Writing",
     "items": [
       {
         "id": "wr-1",
         "title": "On building systems that last",
+        "url": "#",
         "body": "The hardest part of backend engineering is not writing the feature — it is writing it in a way your future self will still understand at 2am during an incident."
       },
       {
         "id": "wr-2",
         "title": "Queues over cron jobs",
+        "url": "#",
         "body": "Cron jobs are easy until they overlap. A durable queue turns 'run this later' into a guarantee instead of a hope."
+      }
+    ]
+  },
+  "publications": {
+    "sectionNum": "07",
+    "sectionName": "Publications",
+    "items": [
+      {
+        "id": "pub-1",
+        "number": "01",
+        "title": "An Efficient Attention-based Deep Learning Model for Masked and Unmasked Face Recognition",
+        "journal": "11th IEEE International Conference on Sustainable Technology and Engineering (i-COSTE 2025)",
+        "publisher": "IEEE",
+        "url": "https://ieeexplore.ieee.org/document/11467395"
+      },
+      {
+        "id": "pub-2",
+        "number": "02",
+        "title": "Second publication — details to be added",
+        "journal": "TBD",
+        "publisher": "TBD",
+        "url": ""
       }
     ]
   }

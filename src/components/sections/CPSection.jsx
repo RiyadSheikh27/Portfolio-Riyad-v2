@@ -3,7 +3,8 @@
 // Renders the "04 Competitive Programming" block: a SectionLabel followed by
 // one HyphenItem per achievement. Data comes from src/api/index.js's
 // `competitiveProgramming` export — never hardcoded here. Lives at the
-// bottom of Column 2 on the desktop Portfolio layout, below SkillsSection.
+// middle of Column 2 on the desktop Portfolio layout, below SkillsSection
+// and above TimelineSection(education).
 // -----------------------------------------------------------------------------
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
@@ -17,7 +18,7 @@ function CPSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6">
+    <div className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel
         num={competitiveProgramming.sectionNum}
         name={competitiveProgramming.sectionName}
@@ -32,6 +33,7 @@ function CPSection() {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
+            className="break-inside-avoid"
           >
             <HyphenItem text={item.text} />
           </motion.div>

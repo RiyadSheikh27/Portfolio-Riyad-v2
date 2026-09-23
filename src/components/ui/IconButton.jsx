@@ -20,9 +20,9 @@ function IconButton({ href, icon: Icon, label, external }) {
       aria-label={label}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
-      className="flex h-8 w-8 items-center justify-center border border-border text-chalk-dim transition-colors hover:border-red hover:text-chalk"
+      className="flex h-9 w-9 items-center justify-center border border-border text-chalk-dim transition-colors hover:border-red hover:text-chalk md:h-10 md:w-10"
     >
-      {Icon ? <Icon size={14} strokeWidth={1.75} /> : <span className="text-[10px] font-medium">{label}</span>}
+      {Icon ? <Icon size={18} strokeWidth={1.75} /> : <span className="text-xs font-medium">{label}</span>}
     </a>
   )
 }

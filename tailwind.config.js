@@ -55,22 +55,40 @@ export default {
         red: {
           DEFAULT: '#c0392b',
           dim: '#922b21',
+          // A brighter, lamp-like red for top-level accents: the header's
+          // availability "status light" (paired with `shadow-glow` below),
+          // the designation under the name, and every section numeral —
+          // so those read one step brighter than the regular `red` used for
+          // item-level details (project/publication numbers, dates, links).
+          glow: '#ff4d3a',
         },
         // Shared hairline border color used across cards, columns, header/footer.
         border: 'rgba(255,255,255,0.08)',
       },
       fontFamily: {
-        // Inter becomes the default sans font everywhere (see index.html for
-        // the Google Fonts <link> that actually loads the font files).
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        // Space Grotesk becomes the default sans font everywhere (see
+        // index.html for the Google Fonts <link> that actually loads the
+        // font files).
+        sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
         // A casual, hand-marker display face used ONLY for the header's
-        // name — everything else stays on Inter. Loaded via Google Fonts
-        // in index.html alongside Inter.
+        // name and the intro quote — everything else stays on Space
+        // Grotesk. Loaded via Google Fonts in index.html alongside it.
         hand: ['"Permanent Marker"', 'cursive'],
       },
       // Custom fixed heights referenced by the sticky Footer bar.
       height: {
         footer: '42px',
+      },
+      // Soft halo around the availability status light, so the dot reads
+      // as a glowing lamp rather than a flat circle.
+      boxShadow: {
+        glow: '0 0 8px 2px rgba(255,77,58,0.95), 0 0 18px 6px rgba(255,77,58,0.4)',
+      },
+      // Same glow, as a filter, for SVG icons (box-shadow would draw a
+      // square around the icon's bounding box instead of tracing its shape).
+      // Used on the footer's "Let's talk" icon.
+      dropShadow: {
+        glow: '0 0 4px rgba(255,77,58,0.9)',
       },
       // The wavy column border, as a repeatable background image (see the
       // comment above `wavyBorderTile`) rather than a straight CSS border.
