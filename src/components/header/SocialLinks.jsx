@@ -20,7 +20,7 @@
 // -----------------------------------------------------------------------------
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Mail, Github, Linkedin, Link2 } from 'lucide-react'
+import { Mail, Github, Linkedin, Contact } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import IconButton from '../ui/IconButton'
 import PanelToggle from '../ui/PanelToggle'
@@ -53,7 +53,9 @@ function SocialLinks({ open, onToggle, onClose }) {
       {/* Only a positioning context from md up: on phones the dropdown is
           anchored to the Header itself (full width under it). */}
       <div ref={wrapperRef} className="md:relative">
-        <PanelToggle open={open} onClick={onToggle} icon={Link2} label="social links" />
+        {/* A contact-card icon rather than a single chain link, so the
+            toggle reads as "all my contact links" instead of one link. */}
+        <PanelToggle open={open} onClick={onToggle} icon={Contact} label="social links" />
 
         {/* Dropdown (below xl). Right-aligned under the toggle on md, where
             both toggles sit at the header's right edge; left-aligned from
