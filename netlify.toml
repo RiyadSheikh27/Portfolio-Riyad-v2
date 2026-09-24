@@ -1,0 +1,18 @@
+# netlify.toml — build + deploy settings for Netlify.
+# Build with Vite, publish the `dist` folder, and deploy the serverless
+# function(s) in netlify/functions (the contact form's email sender).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Single-page app: serve index.html for client-side routes like /lets-talk
+# so a refresh or a direct link doesn't 404. Function paths (/api/contact)
+# are matched before this rule.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

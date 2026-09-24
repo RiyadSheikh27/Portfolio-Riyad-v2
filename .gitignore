@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local secrets (Gmail app password for the contact function)
+.env
+.netlify
