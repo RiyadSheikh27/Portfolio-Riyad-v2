@@ -21,6 +21,8 @@
 // section components so a single entry is never split across two columns.
 // -----------------------------------------------------------------------------
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useReducedMotion } from 'framer-motion'
 import { useIsMobile } from '../hooks/useIsMobile'
 import { useColumnDividers } from '../hooks/useColumnDividers'
 import IntroSection from '../components/sections/IntroSection'
@@ -41,6 +43,8 @@ function Portfolio() {
   // The desktop scroll container. A wheel listener on it redirects normal
   // (vertical) mouse-wheel input into horizontal scrolling, since the whole
   // point of this layout is that it scrolls sideways, not down.
+  // Also reused for the mobile wrapper (only one branch renders at a
+  // time), so "scroll back to start" below works for both layouts.
   const scrollRef = useRef(null)
 
   // The multi-column element inside the scroller, measured by
@@ -67,6 +71,25 @@ function Portfolio() {
     node.addEventListener('wheel', handleWheel, { passive: false })
     return () => node.removeEventListener('wheel', handleWheel)
   }, [isMobile])
+
+  // Every click on the Header's logo link creates a new router location
+  // (a new `key`), even when we're already on "/". Watching the key lets
+  // this page scroll back to the start — the first column on desktop, the
+  // top on mobile — without the Header needing a ref into this page.
+  // Smooth scrolling is skipped for users who prefer reduced motion.
+  const { key: locationKey } = useLocation()
+  const shouldReduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({
+      left: 0,
+      top: 0,
+      behavior: shouldReduceMotion ? 'auto' : 'smooth',
+    })
+    // shouldReduceMotion is deliberately left out: toggling the OS setting
+    // shouldn't itself trigger a scroll, only a new location should.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationKey])
 
   // Each column group has a stable id (rather than relying on array index)
   // so React's reconciliation/key warnings stay clean.
@@ -108,7 +131,7 @@ function Portfolio() {
       // overflow hidden (see styles/index.css), so the wrapper must be
       // capped at <main>'s height for overflow-y-auto to kick in —
       // otherwise the content just spills out under the footer.
-      <div className="h-full overflow-y-auto">
+      <div ref={scrollRef} className="h-full overflow-y-auto">
         {columns.map((col, i) => (
           <div key={col.id}>
             {col.content}

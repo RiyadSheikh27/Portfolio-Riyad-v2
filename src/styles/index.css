@@ -7,8 +7,10 @@
  *      per-element basis: locking body scroll on desktop, because the
  *      Portfolio page implements its own horizontal-scroll behavior instead
  *      (see useIsMobile + Portfolio.jsx's wheel-event handler).
- *   3. A `.scrollbar-thin` utility for the Portfolio page's horizontal
- *      scrollbar. Tailwind v3 has no built-in scrollbar-width/appearance
+ *   3. A `.scrollbar-thin` utility for slim scrollbars — the Portfolio
+ *      page's horizontal one and the ChatBot's vertical message list —
+ *      and `.scrollbar-none` to hide one entirely while keeping the element
+ *      scrollable (the Header's inline section list). Tailwind v3 has no built-in scrollbar-width/appearance
  *      utilities, and browsers only expose this via the non-standard
  *      `::-webkit-scrollbar-*` pseudo-elements (Chrome/Safari) or the
  *      `scrollbar-width` property (Firefox), neither of which can be
@@ -35,12 +37,22 @@ body,
 
 .scrollbar-thin::-webkit-scrollbar {
   height: 4px; /* Chrome/Safari/Edge — slim horizontal scrollbar track */
+  width: 4px; /* …and the same thickness for vertical scrollbars */
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
   background-color: rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
 }
 
 .scrollbar-thin::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+.scrollbar-none {
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
 }

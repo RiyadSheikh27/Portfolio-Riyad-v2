@@ -18,10 +18,11 @@
 //   data (object) — a section object shaped like above
 // -----------------------------------------------------------------------------
 import PropTypes from 'prop-types'
-import { ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function TimelineSection({ data }) {
   // Skips the fade/slide-up animation entirely when the user's OS is set to
@@ -29,7 +30,7 @@ function TimelineSection({ data }) {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(data.sectionName)} className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel num={data.sectionNum} name={data.sectionName} />
 
       {/* The vertical connector line is a single border-l on this wrapper
@@ -74,7 +75,7 @@ function TimelineSection({ data }) {
               className="inline-flex items-center gap-1 text-sm text-red transition-colors hover:text-chalk"
             >
               {item.company}
-              <ExternalLink size={10} strokeWidth={1.75} />
+              <ArrowUpRight size={12} strokeWidth={2} />
             </a>
 
             {item.description && (

@@ -25,3 +25,13 @@ export function truncateText(text, maxLength = 140) {
 export function formatDateRange(start, end = 'Present') {
   return `${start} — ${end}`
 }
+
+/**
+ * Turns a section name into the DOM id its section element carries, e.g.
+ * "Competitive Programming" -> "section-competitive-programming". Both the
+ * section components (to set the id) and the Header's SectionNav (to find
+ * the element to scroll to) call this, so the two can never disagree.
+ */
+export function toSectionId(sectionName) {
+  return `section-${sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+}

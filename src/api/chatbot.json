@@ -1,0 +1,37 @@
+{
+  "title": "Ask Riyad",
+  "subtitle": "Pick a question below",
+  "greeting": "Hi! I'm Riyad's portfolio assistant. Choose a question and I'll answer it.",
+  "items": [
+    {
+      "id": "q-who",
+      "question": "Who are you?",
+      "answer": "I'm MD. Fazle Rabbi Riyad, a Full-Stack Software Engineer based in Dhaka, Bangladesh. I build dependable APIs, data systems, and the frontends that sit on top of them."
+    },
+    {
+      "id": "q-stack",
+      "question": "What's your tech stack?",
+      "answer": "Mostly Python (Django, DRF, FastAPI) on the backend and React.js on the frontend, backed by PostgreSQL, MySQL, MongoDB and Redis. For async work I use Celery, Kafka, WebSocket and Django Channels."
+    },
+    {
+      "id": "q-infra",
+      "question": "Do you handle deployment?",
+      "answer": "Yes. I containerise services with Docker, set up CI/CD pipelines, and deploy to AWS or VPS servers behind Nginx and Gunicorn."
+    },
+    {
+      "id": "q-cp",
+      "question": "Competitive programming?",
+      "answer": "I've solved 550+ problems on Codeforces with a highest rating of 1182, practice on LeetCode, and served on the organizing committee of the 2022 ICPC Asia Dhaka Regional Contest."
+    },
+    {
+      "id": "q-available",
+      "question": "Are you available?",
+      "answer": "I'm currently available for select projects. If you have something in mind, tell me about it on the [Let's talk page](/lets-talk)."
+    },
+    {
+      "id": "q-contact",
+      "question": "How can I reach you?",
+      "answer": "You can reach me by email at [riyad.cse27@gmail.com](mailto:riyad.cse27@gmail.com), by phone at [+880-161-2168868](tel:+8801612168868), or on [WhatsApp](https://wa.me/8801612168868). You can also send me a message from the [Let's talk page](/lets-talk)."
+    }
+  ]
+}

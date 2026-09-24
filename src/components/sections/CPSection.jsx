@@ -11,6 +11,7 @@ import SectionLabel from '../ui/SectionLabel'
 import HyphenItem from '../ui/HyphenItem'
 import { competitiveProgramming } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function CPSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -18,7 +19,7 @@ function CPSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(competitiveProgramming.sectionName)} className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel
         num={competitiveProgramming.sectionNum}
         name={competitiveProgramming.sectionName}

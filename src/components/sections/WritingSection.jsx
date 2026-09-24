@@ -6,11 +6,12 @@
 // hardcoded here. Lives in Column 4 of the desktop Portfolio layout, below
 // PublicationsSection.
 // -----------------------------------------------------------------------------
-import { ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import { writing } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function WritingSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -18,7 +19,7 @@ function WritingSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(writing.sectionName)} className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel num={writing.sectionNum} name={writing.sectionName} />
 
       <div className="space-y-4">
@@ -43,7 +44,7 @@ function WritingSection() {
                 className="inline-flex items-center gap-1 text-base font-medium text-chalk transition-colors hover:text-red"
               >
                 {item.title}
-                <ExternalLink size={10} strokeWidth={1.75} />
+                <ArrowUpRight size={12} strokeWidth={2} />
               </a>
             ) : (
               <h3 className="text-base font-medium text-chalk">{item.title}</h3>

@@ -7,11 +7,12 @@
 // a publication only means appending an item in portfolio.json. Lives in
 // Column 4 of the desktop Portfolio layout, above WritingSection.
 // -----------------------------------------------------------------------------
-import { ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import { publications } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function PublicationsSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -19,7 +20,7 @@ function PublicationsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(publications.sectionName)} className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel
         num={publications.sectionNum}
         name={publications.sectionName}
@@ -50,9 +51,9 @@ function PublicationsSection() {
                   className="text-base font-medium leading-snug text-chalk transition-colors hover:text-red"
                 >
                   {item.title}
-                  <ExternalLink
-                    size={10}
-                    strokeWidth={1.75}
+                  <ArrowUpRight
+                    size={12}
+                    strokeWidth={2}
                     className="ml-1 inline align-baseline"
                   />
                 </a>

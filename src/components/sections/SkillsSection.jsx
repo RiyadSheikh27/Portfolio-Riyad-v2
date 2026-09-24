@@ -17,6 +17,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import { skills } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function SkillsSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -24,7 +25,7 @@ function SkillsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(skills.sectionName)} className="space-y-4 p-6 box-decoration-clone">
       <SectionLabel num={skills.sectionNum} name={skills.sectionName} />
       <div className="space-y-2.5">
         {skills.items.map((item, index) => (

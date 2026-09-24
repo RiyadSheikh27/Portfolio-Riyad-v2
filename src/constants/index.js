@@ -22,3 +22,11 @@ export const STAGGER_DELAY = 0.08
 // Let's talk call-to-action (the nudge itself lasts ATTENTION_DURATION).
 export const ATTENTION_INTERVAL = 3
 export const ATTENTION_DURATION = 0.8
+
+// Milliseconds between each character when the ChatBot "types" an answer.
+export const TYPING_SPEED = 18
+
+// Matches Tailwind's `xl` breakpoint. From here up, the Header's section
+// nav and social links expand INLINE in the header row; below it, they
+// open as dropdowns instead (there isn't room for them inline).
+export const HEADER_INLINE_BREAKPOINT = 1280

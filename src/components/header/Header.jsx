@@ -1,43 +1,65 @@
 // src/components/header/Header.jsx
 // -----------------------------------------------------------------------------
 // The persistent top bar shown on every page (rendered once by AppLayout).
-// Laid out as three distinct info blocks, left to right:
-//   1. Logo mark + name/role      — who this is
+// Laid out as distinct blocks, left to right:
+//   1. Logo mark + name/role      — who this is (logo = "back to start")
 //   2. Availability + location    — status + where (glowing bullet)
-//   3. Social icons               — links
+//   3. Social links               — collapsed behind a toggle (SocialLinks.jsx)
+//   4. Section navigator          — jump to any section (SectionNav.jsx),
+//                                   at the far right
+// Blocks 3 and 4 are expandable panels. Only one is open at a time — this
+// component owns that state — so on wide screens the section list always
+// has the room it needs.
 // All of the text and links come from src/api/index.js (meta + socialLinks)
 // — nothing here is hardcoded, so updating contact info only ever means
 // editing portfolio.json.
 // -----------------------------------------------------------------------------
-import { Mail, Github, Linkedin, MapPin } from 'lucide-react'
-import IconButton from '../ui/IconButton'
-import WhatsAppIcon from '../ui/WhatsAppIcon'
-import { meta, socialLinks } from '../../api'
-
-// Maps the icon name strings stored in portfolio.json (socialLinks[].icon)
-// to the actual Lucide icon components. Only importing the handful of icons
-// actually used (instead of `import * as LucideIcons`) keeps the production
-// bundle from pulling in the entire icon library. WhatsApp isn't in Lucide,
-// so it maps to a local brand-icon component with the same `size` API.
-const ICON_MAP = { Mail, Github, Linkedin, WhatsApp: WhatsAppIcon }
+import { useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { MapPin } from 'lucide-react'
+import LogoMark from '../ui/LogoMark'
+import SectionNav from './SectionNav'
+import SocialLinks from './SocialLinks'
+import { meta } from '../../api'
 
 function Header() {
+  // Which expandable panel is open: 'nav', 'links', or null. Opening one
+  // closes the other.
+  const [openPanel, setOpenPanel] = useState(null)
+  const togglePanel = (name) => setOpenPanel((prev) => (prev === name ? null : name))
+  // Stable identity, since useDismiss re-subscribes whenever it changes.
+  const closePanel = useCallback(() => setOpenPanel(null), [])
+
   return (
-    // The three blocks sit in a wrapping flex row, so they reflow by
-    // themselves as space runs out instead of being hidden:
-    //   - lg and up: everything on one fixed-height row, icons pushed right
-    //   - tablets:   name + availability on row 1, icons on row 2
-    //   - phones:    name, availability, and icons each on their own row
-    <header className="flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 md:px-6 lg:h-20 lg:py-0">
+    // The blocks sit in a wrapping flex row, so they reflow by themselves
+    // as space runs out instead of being hidden:
+    //   - lg and up: one fixed-height row (never wraps); the toggles group
+    //     takes the remaining width, social toggle pushed to the far right
+    //   - md–lg:     name + availability on row 1 (when they fit), the two
+    //     toggles on row 2, right-aligned
+    //   - phones:    name on row 1; availability + both toggles on row 2
+    //     (toggles right-aligned), wrapping to a 3rd row on very narrow
+    //     screens
+    // `relative` makes the header the anchor for the phone dropdowns.
+    <header className="relative flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 md:px-6 lg:h-20 lg:flex-nowrap lg:py-0">
       {/* Left group: logo mark + Section 1 (name/role). */}
       <div className="flex items-center gap-4 md:gap-6">
         {/* Logo mark — h-11 matches the name + role stack beside it
             (text-2xl leading-none 24px + mt-1 4px + text-xs 16px = 44px),
             so the square and the text block share the same height. On
-            phones the name drops to text-xl, so the mark shrinks to h-10. */}
-        <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center border border-border text-base text-chalk-dim md:h-11 md:w-11 md:text-lg">
-          {'{ }'}
-        </div>
+            phones the name drops to text-xl, so the mark shrinks to h-10.
+            It's the same drawing as the browser-tab icon, and doubles as a
+            "back to start" link: from another page it navigates home, and
+            on the Portfolio page itself each click creates a fresh router
+            location, which Portfolio.jsx reacts to by scrolling back to
+            the first column. */}
+        <Link
+          to="/"
+          aria-label="Back to start"
+          className="block h-10 w-10 flex-shrink-0 transition-transform hover:scale-105 hover:drop-shadow-glow md:h-11 md:w-11"
+        >
+          <LogoMark />
+        </Link>
 
         {/* Section 1 — name on top, role/designation underneath. The name
             uses the `hand` display font (Permanent Marker, registered in
@@ -80,21 +102,25 @@ function Header() {
         </div>
       </div>
 
-      {/* Section 3 — social icon row, pushed to the far right on the
-          single-row (lg) layout. */}
-      <div className="flex items-center gap-2 lg:ml-auto">
-        {socialLinks.map((link) => {
-          const Icon = link.icon ? ICON_MAP[link.icon] : null
-          return (
-            <IconButton
-              key={link.id}
-              href={link.href}
-              icon={Icon}
-              label={link.label}
-              external={!link.href.startsWith('mailto:')}
-            />
-          )
-        })}
+      {/* Sections 3 + 4 — the two panel toggles, grouped so they stay
+          side by side and right-aligned when they wrap onto their own row.
+          From lg up the group fills the rest of the row, right after the
+          availability block with a hairline divider (same gap as between
+          the blocks before it): SocialLinks comes first (its icons expand
+          rightwards), SectionNav takes the remaining width with its toggle
+          at the far right (its list expands leftwards). Below lg the group
+          is pushed right, away from the availability block, so no divider. */}
+      <div className="ml-auto flex min-w-0 items-center gap-2 lg:ml-0 lg:flex-1 lg:border-l lg:border-border lg:pl-6">
+        <SocialLinks
+          open={openPanel === 'links'}
+          onToggle={() => togglePanel('links')}
+          onClose={closePanel}
+        />
+        <SectionNav
+          open={openPanel === 'nav'}
+          onToggle={() => togglePanel('nav')}
+          onClose={closePanel}
+        />
       </div>
     </header>
   )

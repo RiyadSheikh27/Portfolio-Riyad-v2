@@ -11,12 +11,13 @@
 // split readable, the name + type lines stay together and with what
 // follows (`break-after-avoid`), and the tag row never splits.
 // -----------------------------------------------------------------------------
-import { ExternalLink } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import Tag from '../ui/Tag'
 import { projects } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function ProjectsSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -24,7 +25,7 @@ function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="space-y-6 p-6 box-decoration-clone">
+    <div id={toSectionId(projects.sectionName)} className="space-y-6 p-6 box-decoration-clone">
       <SectionLabel num={projects.sectionNum} name={projects.sectionName} />
 
       <div className="space-y-6">
@@ -48,7 +49,7 @@ function ProjectsSection() {
                 className="inline-flex items-center gap-1 text-base font-medium text-chalk transition-colors hover:text-red"
               >
                 {item.name}
-                <ExternalLink size={10} strokeWidth={1.75} />
+                <ArrowUpRight size={12} strokeWidth={2} />
               </a>
             </div>
 

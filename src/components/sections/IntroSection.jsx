@@ -12,6 +12,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import SectionLabel from '../ui/SectionLabel'
 import { intro } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
+import { toSectionId } from '../../utils/helpers'
 
 function IntroSection() {
   // Framer Motion's hook for the OS-level "prefers reduced motion" setting.
@@ -21,6 +22,7 @@ function IntroSection() {
 
   return (
     <motion.div
+      id={toSectionId(intro.sectionName)}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: ANIMATION_DURATION }}
