@@ -22,7 +22,7 @@
   "intro": {
     "sectionNum": "01",
     "sectionName": "Introduction",
-    "body": "I'm Riyad, a CSE graduate and Full Stack Software Engineer specializing in Python and JavaScript. I design and build systems from scratch to deployment — clean, scalable, and production-ready. With 1000+ problems solved and 70+ contests under my belt, I bring strong problem-solving thinking to everything I build. I'm always ready for the next challenge.",
+    "body": "I'm Riyad, a CSE graduate and Full Stack Software Engineer specializing in Python and JavaScript. I design and build systems from scratch to deployment — clean, scalable, and production-ready. Whether it's architecting a backend API, designing a real-time system, or crafting a responsive frontend, I bring the same level of care and precision to every layer of the stack. With 1000+ problems solved and 70+ contests under my belt, strong problem-solving thinking is at the core of how I approach every challenge. I don't just write code — I think in systems, lead with clarity, and always stay hungry for what's next.",
     "quote": "Turning coffee into code, and dreams into reality."
   },
   "experience": {
@@ -35,7 +35,7 @@
         "company": "ASL Sustems.",
         "companyUrl": "https://asl.aero/",
         "dateRange": "August 2026 — Present",
-        "description": "Developing in-house aviation service products across the full stack, building scalable backend services and responsive web applications while working with Django REST, PostgreSQL, Redis, Celery, JavaScript, TypeScript, React.js, Next.js, and modern API integrations."
+        "description": "Developing in-house aviation service products across the full stack, building scalable backend services and responsive web applications while working with Python, Django REST, TypeScript, React.js, Next.js, SQL Databases etc."
       },
       {
         "id": "exp-2",
@@ -43,7 +43,7 @@
         "company": "Betopia Group",
         "companyUrl": "https://betopiagroup.com/",
         "dateRange": "Dec 2025 — July 2026",
-        "description": "Developing AI-powered projects for international clients, deepening expertise in AI integrations and asynchronous systems; working with DRF, PostgreSQL, FastAPI, WebSockets, Django Channels, Kafka, Redis, Celery, AWS, and client-facing deployments."
+        "description": "Developed AI-powered projects for international clients, deepening expertise in AI integrations and asynchronous systems; worked with core Python, DRF, FastAPI, PostgreSQL, AWS, and client-facing deployments."
       },
       {
         "id": "exp-3",
@@ -51,7 +51,7 @@
         "company": "Zensoft Lab",
         "companyUrl": "https://zensoftlab.com/",
         "dateRange": "March 2025 — Oct 2025",
-        "description": "Completed a backend internship and retained as a Python Backend Developer; built scalable APIs with Django REST and PostgreSQL, and worked on FastAPI, React.js, JWT/OTP/OAuth, Redis, Kafka, payment gateways, and WebSockets."
+        "description": "Completed a backend internship and retained as a Python Backend Developer; built scalable APIs with Django REST and PostgreSQL, also worked on FastAPI, React.js etc."
       }
     ]
   },
@@ -87,9 +87,9 @@
     "items": [
       {
         "id": "proj-1",
-        "name": "Betopian - Betopia Group’s Central System",
+        "name": "Betopian - Betopia Group's Central System",
         "type": "Mobile-first Enterprise Super App",
-        "description": "Betopian Social ERP is a mobile-first enterprise super app with around 10k+ users that unifies data from multiple systems, including ERP, HR management, and internal collaboration tools. This backend service is one microservice in that ecosystem, responsible for social collaboration features such as communities, posts, reels, chat, calls, notifications, ebooks, and meeting notes.",
+        "description": "A mobile-first Social ERP super app with 10k+ users, unifying ERP, HR, and collaboration tools. This microservice handles communities, posts, reels, chat, calls, notifications, and meeting notes.",
         "stack": "Python · Django Rest Framework · PostgreSQL · Redis · Celery · Kafka · WebSocket · WebRTC · Coturn · Docker · AWS · CDN · System Design",
         "url": "https://app.notion.com/p/Betopian-App-s-Backend-Microservice-3748b1bff530820f87bd0125d24b79ad"
       },
@@ -97,7 +97,7 @@
         "id": "proj-2",
         "name": "MLK Phone",
         "type": "Booking and E-Commerce System",
-        "description": "Built the complete backend of MLK Phone, a phone sales & service platform. Implemented phone repair workflows, appointment scheduling, product purchases, and Stripe-based payment integration.",
+        "description": "Complete backend for a phone sales & service platform, covering repair workflows, appointment scheduling, product purchases, and Stripe payment integration.",
         "stack": "Python · JS · Django Rest Framework · PostgreSQL · Next.js · Celery · Stripe · VPS",
         "url": "https://mobile-shop-repair.vercel.app/"
       },
@@ -105,7 +105,7 @@
         "id": "proj-3",
         "name": "Social Genius - Top5",
         "type": "Notification Fan-Out Service",
-        "description": "Developed backend services for a location-based recommendation app, delivering top 5 places and activities based on user location, distance, and time; integrated Google Maps and OpenAI APIs for intelligent real-time recommendations, with background task processing and cloud deployment using Django REST, Celery, and AWS.",
+        "description": "Location-based recommendation app delivering top 5 places by distance and time, with Google Maps and OpenAI integration for real-time intelligent suggestions.",
         "stack": "Python · Dart · DRF · PostgreSQL · Flutter · AWS · Celery · Redis · Google Maps · OpenAI · Google Map APIs Integration",
         "url": "https://drive.google.com/file/d/1AXbMhIdrzw316s4ILQZcrngyNYIxbcaw/view"
       }
