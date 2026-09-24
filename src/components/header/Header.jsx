@@ -14,12 +14,14 @@
 // — nothing here is hardcoded, so updating contact info only ever means
 // editing portfolio.json.
 // -----------------------------------------------------------------------------
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
 import LogoMark from '../ui/LogoMark'
 import SectionNav from './SectionNav'
 import SocialLinks from './SocialLinks'
+import { useIsMobile } from '../../hooks/useIsMobile'
+import { useHideOnScroll } from '../../hooks/useHideOnScroll'
 import { meta } from '../../api'
 
 function Header() {
@@ -29,6 +31,25 @@ function Header() {
   const togglePanel = (name) => setOpenPanel((prev) => (prev === name ? null : name))
   // Stable identity, since useDismiss re-subscribes whenever it changes.
   const closePanel = useCallback(() => setOpenPanel(null), [])
+
+  // Phones only: slide the header away while scrolling down and bring it
+  // back on scroll up, so reading gets the full screen height. Never hides
+  // while one of its dropdowns is open.
+  const isMobile = useIsMobile()
+  const hidden = useHideOnScroll(isMobile && openPanel === null)
+
+  // The header's current height, so hiding can pull it up by exactly that
+  // much (its height varies as its rows wrap on narrow screens).
+  const headerRef = useRef(null)
+  const [height, setHeight] = useState(0)
+  useEffect(() => {
+    // Side effect: keep `height` in sync with the rendered header.
+    const node = headerRef.current
+    if (!node) return undefined
+    const observer = new ResizeObserver(() => setHeight(node.offsetHeight))
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     // The blocks sit in a wrapping flex row, so they reflow by themselves
@@ -41,7 +62,15 @@ function Header() {
     //     (toggles right-aligned), wrapping to a 3rd row on very narrow
     //     screens
     // `relative` makes the header the anchor for the phone dropdowns.
-    <header className="relative flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 md:px-6 lg:h-20 lg:flex-nowrap lg:py-0">
+    // Hiding uses a negative top margin (not a transform), so <main> below
+    // actually grows into the freed space instead of leaving a gap. The
+    // inline style is unavoidable here because the height is measured at
+    // runtime.
+    <header
+      ref={headerRef}
+      style={{ marginTop: hidden ? -height : 0 }}
+      className="relative z-20 flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 transition-[margin] duration-300 ease-out motion-reduce:transition-none md:px-6 lg:h-20 lg:flex-nowrap lg:py-0"
+    >
       {/* Left group: logo mark + Section 1 (name/role). */}
       <div className="flex items-center gap-4 md:gap-6">
         {/* Logo mark — h-11 matches the name + role stack beside it
