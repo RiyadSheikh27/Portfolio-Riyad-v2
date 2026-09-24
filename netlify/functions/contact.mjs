@@ -76,9 +76,14 @@ export default async (request) => {
   if (error) return json(400, { error })
 
   const { GMAIL_USER, GMAIL_APP_PASSWORD, CONTACT_TO } = process.env
-  if (!GMAIL_USER || !GMAIL_APP_PASSWORD || !CONTACT_TO) {
-    console.error('contact: missing GMAIL_USER / GMAIL_APP_PASSWORD / CONTACT_TO')
-    return json(500, { error: 'Email is not configured on the server.' })
+  // Report which variables are missing — by NAME only, never values — so a
+  // misconfigured deploy is quick to diagnose.
+  const missing = Object.entries({ GMAIL_USER, GMAIL_APP_PASSWORD, CONTACT_TO })
+    .filter(([, value]) => !value)
+    .map(([key]) => key)
+  if (missing.length > 0) {
+    console.error(`contact: missing environment variables: ${missing.join(', ')}`)
+    return json(500, { error: `Email is not configured on the server (missing: ${missing.join(', ')}).` })
   }
 
   const name = fields.name.trim()
