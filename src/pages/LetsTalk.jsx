@@ -4,17 +4,23 @@
 // (see components/footer/Footer.jsx). Renders a small vertically-centered
 // form (Name, Email/Phone, Subject, Message) that validates on submit, then POSTs
 // it to CONTACT_ENDPOINT — a Netlify Function (netlify/functions/contact.mjs)
-// that emails it via Gmail. Once sent, the form swaps to a success message;
+// that emails it via Gmail. Once sent, the form swaps to a success message
+// and, after REDIRECT_DELAY, returns the visitor to the home page;
 // if sending fails, an error shows under the button and the typed message
 // is kept so nothing is lost.
 // -----------------------------------------------------------------------------
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ANIMATION_DURATION } from '../constants'
 
 // The serverless function that actually sends the email (see
 // netlify/functions/contact.mjs, which declares this path).
 const CONTACT_ENDPOINT = '/api/contact'
+
+// How long (ms) the "Thanks!" message stays up before returning home — long
+// enough to read it, so the visitor knows the message actually went out.
+const REDIRECT_DELAY = 2500
 
 // The "Email/Phone" field accepts either, so the visitor can say how
 // they'd like to be reached. Deliberately simple checks — the server
@@ -75,6 +81,17 @@ function LetsTalk() {
   // motion" accessibility setting. When true, we skip the animated
   // offsets/scale below so users who've asked for less motion don't get it.
   const shouldReduceMotion = useReducedMotion()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // Side effect: once the message is sent, go back to the home page after
+    // a short pause. The cleanup cancels it if the visitor navigates away
+    // first (e.g. clicks the logo), so it never fires on another page.
+    if (!submitted) return undefined
+    const timer = window.setTimeout(() => navigate('/'), REDIRECT_DELAY)
+    return () => window.clearTimeout(timer)
+  }, [submitted, navigate])
 
   async function handleSubmit(event) {
     // Prevent the browser's default full-page form submission/reload —
@@ -151,6 +168,7 @@ function LetsTalk() {
           <p className="text-sm text-chalk">
             Thanks! I&apos;ll get back to you soon.
           </p>
+          <p className="mt-2 text-xs text-chalk-faint">Taking you back home…</p>
         </motion.div>
       ) : (
         <motion.form
