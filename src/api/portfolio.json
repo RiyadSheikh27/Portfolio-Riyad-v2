@@ -9,11 +9,15 @@
     "footerTagline": "Copyright © 2026 — All rights reserved by Md. Fazle Rabbi Riyad."
   },
   "socialLinks": [
-    { "id": "email", "label": "Email", "href": "mailto:riyad.cse27@gmail.com", "icon": "Mail" },
-    { "id": "whatsapp", "label": "WhatsApp", "href": "https://wa.me/8801612168868", "icon": "WhatsApp" },
-    { "id": "github", "label": "GitHub", "href": "https://github.com/riyadSheikh27", "icon": "Github" },
-    { "id": "linkedin", "label": "LinkedIn", "href": "https://linkedin.com", "icon": "Linkedin" },
-    { "id": "codeforces", "label": "CF", "href": "https://codeforces.com", "icon": null }
+    {"id": "email", "label": "Email", "href": "mailto:riyad.cse27@gmail.com", "icon": "Mail"},
+    {"id": "whatsapp", "label": "WhatsApp", "href": "https://wa.me/8801612168868", "icon": "WhatsApp"},
+    {"id": "github", "label": "GitHub", "href": "https://github.com/RiyadSheikh27", "icon": "Github"},
+    {"id": "linkedin", "label": "LinkedIn", "href": "https://linkedin.com/in/riyadsheikh27", "icon": "Linkedin"},
+    {"id": "codeforces", "label": "Codeforces", "short": "CF", "href": "https://codeforces.com/profile/Riyad27", "icon": null},
+    {"id": "leetcode", "label": "LeetCode", "short": "LC", "href": "https://leetcode.com/u/riyadsheikh27/", "icon": null},
+    {"id": "hashnode", "label": "Hashnode", "href": "https://riyad-drf.hashnode.dev/", "icon": "PenLine"},
+    {"id": "facebook", "label": "Facebook", "href": "https://www.facebook.com/fazle.riyad", "icon": "Facebook"},
+    {"id": "instagram", "label": "Instagram", "href": "https://www.instagram.com/__riyad.py__/", "icon": "Instagram"}
   ],
   "intro": {
     "sectionNum": "01",

@@ -144,6 +144,9 @@ function Header() {
           open={openPanel === 'links'}
           onToggle={() => togglePanel('links')}
           onClose={closePanel}
+          // Icon-only on xl+ whenever a panel is open: while the section
+          // list or the link icons are expanded inline, they need the room.
+          compact={openPanel !== null}
         />
         <SectionNav
           open={openPanel === 'nav'}

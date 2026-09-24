@@ -147,7 +147,16 @@ function SectionNav({ open, onToggle, onClose }) {
           anchored to the Header itself (full width under it), because the
           toggle may wrap to either edge of a narrow screen. */}
       <div ref={wrapperRef} className="md:relative">
-        <PanelToggle open={open} onClick={onToggle} icon={Menu} label="section navigation" />
+        {/* Heavier strokes: the ≡ is just three thin lines, so at the
+            default weight it looked dimmer than the Connect toggle's
+            ring-heavy share icon, despite the identical color. */}
+        <PanelToggle
+          open={open}
+          onClick={onToggle}
+          icon={Menu}
+          label="section navigation"
+          strokeWidth={2.5}
+        />
 
         {/* Dropdown (below xl), right-aligned under the toggle. */}
         <AnimatePresence>

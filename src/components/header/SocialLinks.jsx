@@ -17,10 +17,13 @@
 //   open     (bool) — whether the links are showing
 //   onToggle (func) — flips `open`
 //   onClose  (func) — closes the links
+//   compact  (bool) — shrink the "Connect" toggle to icon-only on xl+,
+//                     while an inline panel (this one's icons or
+//                     SectionNav's list) needs the room
 // -----------------------------------------------------------------------------
 import { useRef } from 'react'
 import PropTypes from 'prop-types'
-import { Mail, Github, Linkedin, Contact } from 'lucide-react'
+import { Facebook, Github, Instagram, Linkedin, Mail, PenLine, Share2 } from 'lucide-react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import IconButton from '../ui/IconButton'
 import PanelToggle from '../ui/PanelToggle'
@@ -34,14 +37,25 @@ import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
 // actually used (instead of `import * as LucideIcons`) keeps the production
 // bundle from pulling in the entire icon library. WhatsApp isn't in Lucide,
 // so it maps to a local brand-icon component with the same `size` API.
-const ICON_MAP = { Mail, Github, Linkedin, WhatsApp: WhatsAppIcon }
-
-// mailto: links open the mail app in place; everything else opens a new tab.
-function isExternal(link) {
-  return !link.href.startsWith('mailto:')
+// Links with no matching icon (Codeforces, LeetCode) set `icon: null` and a
+// `short` text code ("CF", "LC") that's shown in the icon's place.
+const ICON_MAP = {
+  Mail,
+  WhatsApp: WhatsAppIcon,
+  Github,
+  Linkedin,
+  PenLine,
+  Facebook,
+  Instagram,
 }
 
-function SocialLinks({ open, onToggle, onClose }) {
+// mailto:/tel: links open the mail/phone app in place; everything else
+// opens a new tab.
+function isExternal(link) {
+  return !/^(mailto|tel):/.test(link.href)
+}
+
+function SocialLinks({ open, onToggle, onClose, compact = false }) {
   const shouldReduceMotion = useReducedMotion()
 
   // Wraps the toggle + dropdown, so a click outside it closes the dropdown.
@@ -53,9 +67,16 @@ function SocialLinks({ open, onToggle, onClose }) {
       {/* Only a positioning context from md up: on phones the dropdown is
           anchored to the Header itself (full width under it). */}
       <div ref={wrapperRef} className="md:relative">
-        {/* A contact-card icon rather than a single chain link, so the
-            toggle reads as "all my contact links" instead of one link. */}
-        <PanelToggle open={open} onClick={onToggle} icon={Contact} label="social links" />
+        {/* Captioned "Connect" with a share (linked-nodes) icon: an icon
+            alone was read as a single link, not a menu of several. */}
+        <PanelToggle
+          open={open}
+          onClick={onToggle}
+          icon={Share2}
+          label="social links"
+          text="Connect"
+          compact={compact}
+        />
 
         {/* Dropdown (below xl). Right-aligned under the toggle on md, where
             both toggles sit at the header's right edge; left-aligned from
@@ -87,7 +108,7 @@ function SocialLinks({ open, onToggle, onClose }) {
                       {Icon ? (
                         <Icon size={16} strokeWidth={1.75} />
                       ) : (
-                        <span className="text-[10px] font-bold">{link.label.slice(0, 2)}</span>
+                        <span className="text-[10px] font-bold">{link.short ?? link.label.slice(0, 2)}</span>
                       )}
                     </span>
                     {link.label}
@@ -124,6 +145,7 @@ function SocialLinks({ open, onToggle, onClose }) {
                   href={link.href}
                   icon={link.icon ? ICON_MAP[link.icon] : null}
                   label={link.label}
+                  short={link.short}
                   external={isExternal(link)}
                 />
               </motion.span>
@@ -139,6 +161,7 @@ SocialLinks.propTypes = {
   open: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  compact: PropTypes.bool,
 }
 
 export default SocialLinks
