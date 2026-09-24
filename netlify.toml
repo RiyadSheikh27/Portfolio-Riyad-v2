@@ -5,6 +5,13 @@
   command = "npm run build"
   publish = "dist"
 
+# Netlify's secret scanner fails the build if a secret variable's value
+# appears in the repo or build output. GMAIL_USER and CONTACT_TO are just
+# email addresses, and CONTACT_TO is intentionally public (it's on the
+# site). Only GMAIL_APP_PASSWORD is a real secret, and it stays scanned.
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "GMAIL_USER,CONTACT_TO"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
