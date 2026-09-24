@@ -21,12 +21,14 @@ export const projects = portfolioData.projects
 export const education = portfolioData.education
 export const writing = portfolioData.writing
 export const publications = portfolioData.publications
+export const extracurricular = portfolioData.extracurricular
+export const certificates = portfolioData.certificates
 
 // Scripted Q&A for the footer ChatBot (components/sections/ChatBot.jsx).
 export const chatbot = chatbotData
 
 // Every page section, in on-page order (by sectionNum), for the Header's
-// SectionNav. Derived from the data above, so adding or renumbering a
+// SectionNav: { sectionNum, sectionName, navLabel }. Derived from the data above, so adding or renumbering a
 // section in portfolio.json updates the nav automatically.
 export const sections = [
   intro,
@@ -37,6 +39,14 @@ export const sections = [
   education,
   writing,
   publications,
+  extracurricular,
+  certificates,
 ]
-  .map(({ sectionNum, sectionName }) => ({ sectionNum, sectionName }))
+  // navLabel is an optional short name for the nav (e.g. "ECA"); the
+  // section itself always shows its full sectionName.
+  .map(({ sectionNum, sectionName, navLabel }) => ({
+    sectionNum,
+    sectionName,
+    navLabel: navLabel ?? sectionName,
+  }))
   .sort((a, b) => a.sectionNum.localeCompare(b.sectionNum))

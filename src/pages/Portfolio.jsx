@@ -7,7 +7,8 @@
 //   Col 1 — IntroSection + TimelineSection(experience)
 //   Col 2 — SkillsSection + CPSection + TimelineSection(education)
 //   Col 3 — ProjectsSection
-//   Col 4 — PublicationsSection + WritingSection
+//   Col 4 — PublicationsSection + TimelineSection(extracurricular) +
+//           CertificatesSection + WritingSection
 // On mobile (useIsMobile), columns will stack vertically with Dividers
 // between them instead of sitting side by side.
 //
@@ -32,8 +33,9 @@ import CPSection from '../components/sections/CPSection'
 import ProjectsSection from '../components/sections/ProjectsSection'
 import WritingSection from '../components/sections/WritingSection'
 import PublicationsSection from '../components/sections/PublicationsSection'
+import CertificatesSection from '../components/sections/CertificatesSection'
 import Divider from '../components/ui/Divider'
-import { experience, education } from '../api'
+import { experience, education, extracurricular } from '../api'
 
 function Portfolio() {
   // Determines whether to render the vertical (mobile) or horizontal
@@ -115,10 +117,12 @@ function Portfolio() {
     },
     { id: 'col-projects', content: <ProjectsSection /> },
     {
-      id: 'col-publications-writing',
+      id: 'col-publications-eca-certificates-writing',
       content: (
         <>
           <PublicationsSection />
+          <TimelineSection data={extracurricular} />
+          <CertificatesSection />
           <WritingSection />
         </>
       ),

@@ -1,7 +1,7 @@
 // src/components/sections/ProjectsSection.jsx
 // -----------------------------------------------------------------------------
 // Renders the "06 Projects" block: a SectionLabel followed by one entry per
-// project — its number, name (linking out to `url`), type, description, and
+// project — its Roman numeral, name (linking out to `url`), type, description, and
 // its stack string split into individual Tag chips. Data comes from
 // src/api/index.js's `projects` export — never hardcoded here.
 //
@@ -17,7 +17,7 @@ import SectionLabel from '../ui/SectionLabel'
 import Tag from '../ui/Tag'
 import { projects } from '../../api'
 import { ANIMATION_DURATION, STAGGER_DELAY } from '../../constants'
-import { toSectionId } from '../../utils/helpers'
+import { toRoman, toSectionId } from '../../utils/helpers'
 
 function ProjectsSection() {
   // Skips the fade/slide-up animation when the user's OS prefers reduced
@@ -41,7 +41,7 @@ function ProjectsSection() {
             className="space-y-2"
           >
             <div className="flex break-after-avoid items-baseline gap-2">
-              <span className="text-sm text-red">{item.number}</span>
+              <span className="text-sm font-semibold text-red">{toRoman(index + 1)}.</span>
               <a
                 href={item.url}
                 target="_blank"
@@ -57,7 +57,7 @@ function ProjectsSection() {
               {item.type}
             </div>
 
-            <p className="text-sm leading-relaxed text-chalk-dim">
+            <p className="hyphens-auto text-justify text-sm leading-relaxed text-chalk-dim">
               {item.description}
             </p>
 

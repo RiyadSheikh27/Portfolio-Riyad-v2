@@ -9,7 +9,8 @@
 // link icon, description) regardless of which data it's given. The caller
 // decides which data to pass:
 //   <TimelineSection data={experience} />   // Column 1
-//   <TimelineSection data={education} />    // Column 2, below CPSection
+//   <TimelineSection data={education} />         // Column 2, below CPSection
+//   <TimelineSection data={extracurricular} />   // Column 4, below Publications
 // There is no experience-specific or education-specific branching inside
 // this component — that's the whole point of the reuse: one component, two
 // call sites, two different JSON payloads.
@@ -68,18 +69,24 @@ function TimelineSection({ data }) {
             {/* Company / school name uses the same red as SectionLabel's
                 numeral, so the red accents in this column read as one
                 system. Hover brightens it to chalk as the link affordance. */}
-            <a
-              href={item.companyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-red transition-colors hover:text-chalk"
-            >
-              {item.company}
-              <ArrowUpRight size={12} strokeWidth={2} />
-            </a>
+            {/* The organization links out only when it has a URL (Extracurricular
+                entries may not), otherwise it's plain text in the same red. */}
+            {item.companyUrl ? (
+              <a
+                href={item.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-red transition-colors hover:text-chalk"
+              >
+                {item.company}
+                <ArrowUpRight size={12} strokeWidth={2} />
+              </a>
+            ) : (
+              <div className="text-sm text-red">{item.company}</div>
+            )}
 
             {item.description && (
-              <p className="text-sm leading-relaxed text-chalk-dim">
+              <p className="hyphens-auto text-justify text-sm leading-relaxed text-chalk-dim">
                 {item.description}
               </p>
             )}
@@ -99,7 +106,7 @@ TimelineSection.propTypes = {
         id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         company: PropTypes.string.isRequired,
-        companyUrl: PropTypes.string.isRequired,
+        companyUrl: PropTypes.string,
         dateRange: PropTypes.string.isRequired,
         description: PropTypes.string,
       }),

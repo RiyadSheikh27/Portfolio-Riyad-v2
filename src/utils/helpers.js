@@ -35,3 +35,26 @@ export function formatDateRange(start, end = 'Present') {
 export function toSectionId(sectionName) {
   return `section-${sectionName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
 }
+
+/**
+ * Converts a positive integer to an uppercase Roman numeral, e.g. 1 -> "I",
+ * 4 -> "IV", 12 -> "XII". Used for entry numbering inside sections
+ * (projects, publications, certificates, writing), so it reads as a
+ * different level from the "01"-style section numbers.
+ */
+export function toRoman(value) {
+  const numerals = [
+    [1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'],
+    [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'],
+    [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I'],
+  ]
+  let remaining = value
+  let result = ''
+  for (const [amount, numeral] of numerals) {
+    while (remaining >= amount) {
+      result += numeral
+      remaining -= amount
+    }
+  }
+  return result
+}

@@ -123,16 +123,16 @@ function SectionNav({ open, onToggle, onClose }) {
                       <button
                         type="button"
                         onClick={() => goTo(section.sectionName)}
-                        className="whitespace-nowrap text-xs font-medium uppercase tracking-wider text-chalk-dim transition-colors hover:text-red-glow"
+                        className="whitespace-nowrap text-xs font-medium uppercase tracking-wide text-chalk-dim transition-colors hover:text-red-glow 2xl:tracking-wider"
                       >
-                        {section.sectionName}
+                        {section.navLabel}
                       </button>
                       {/* "‹" separator on the right of every item except the
                           first in its row — i.e. between it and the item it
                           follows — so each row reads "… SKILLS ‹ EXPERIENCE
                           ‹ INTRODUCTION" with no stray arrow at either end. */}
                       {index > 0 && (
-                        <ChevronLeft size={12} strokeWidth={2} className="mx-1 text-chalk-faint" />
+                        <ChevronLeft size={12} strokeWidth={2} className="mx-0.5 text-chalk-faint 2xl:mx-1" />
                       )}
                     </motion.span>
                   )
@@ -168,7 +168,7 @@ function SectionNav({ open, onToggle, onClose }) {
                   className="flex w-full items-center gap-3 px-4 py-2 text-left text-xs font-medium uppercase tracking-widest text-chalk-dim transition-colors hover:bg-chalk/5 hover:text-chalk"
                 >
                   <span className="text-red-glow">{section.sectionNum}</span>
-                  {section.sectionName}
+                  {section.navLabel}
                 </button>
               ))}
             </motion.nav>
