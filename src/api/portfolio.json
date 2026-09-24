@@ -76,7 +76,7 @@
     "sectionName": "Competitive Programming",
     "items": [
       { "id": "cp-1", "text": "Codeforces — Highest Rating 1182, 550+ Problems Solved" },
-      { "id": "cp-2", "text": "LeetCode — riyadSheikh27, focused on time & space complexity" },
+      { "id": "cp-2", "text": "LeetCode — Focusing on time & space complexity" },
       { "id": "cp-3", "text": "MIST Hackathon 2025 — Team GreenGalaxy" },
       { "id": "cp-4", "text": "Member, Organizing Committee — 2022 ICPC Asia Dhaka Regional Contest" }
     ]
