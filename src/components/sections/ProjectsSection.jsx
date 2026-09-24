@@ -3,8 +3,13 @@
 // Renders the "06 Projects" block: a SectionLabel followed by one entry per
 // project — its number, name (linking out to `url`), type, description, and
 // its stack string split into individual Tag chips. Data comes from
-// src/api/index.js's `projects` export — never hardcoded here. Lives alone
-// in Column 3 of the desktop Portfolio layout.
+// src/api/index.js's `projects` export — never hardcoded here.
+//
+// Unlike other sections' entries, a project entry is allowed to split
+// across two desktop columns: entries are tall, and keeping each one whole
+// could leave a large empty gap at the bottom of a column. To keep the
+// split readable, the name + type lines stay together and with what
+// follows (`break-after-avoid`), and the tag row never splits.
 // -----------------------------------------------------------------------------
 import { ExternalLink } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
@@ -32,9 +37,9 @@ function ProjectsSection() {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
-            className="break-inside-avoid space-y-2"
+            className="space-y-2"
           >
-            <div className="flex items-baseline gap-2">
+            <div className="flex break-after-avoid items-baseline gap-2">
               <span className="text-sm text-red">{item.number}</span>
               <a
                 href={item.url}
@@ -47,7 +52,7 @@ function ProjectsSection() {
               </a>
             </div>
 
-            <div className="text-sm uppercase tracking-widest text-chalk-faint">
+            <div className="break-after-avoid text-sm uppercase tracking-widest text-chalk-faint">
               {item.type}
             </div>
 
@@ -55,7 +60,7 @@ function ProjectsSection() {
               {item.description}
             </p>
 
-            <div className="flex flex-wrap gap-1.5 pt-1">
+            <div className="flex break-inside-avoid flex-wrap gap-1.5 pt-1">
               {item.stack.split(' · ').map((tech) => (
                 <Tag key={tech} text={tech} />
               ))}
