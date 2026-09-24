@@ -41,14 +41,16 @@ function SkillsSection() {
           >
             {/* Fixed-width label column — every row's value column starts
                 at the exact same x position no matter how long the
-                category name is. whitespace-nowrap guarantees the longest
-                category ("Infrastructure") never wraps onto a second line
-                and throws that alignment off. It's narrower on phones
-                (w-36 still fits "— Infrastructure") to leave the values
-                more room. */}
-            <span className="w-36 flex-shrink-0 whitespace-nowrap md:w-44 text-base text-white">
-              <span className="text-red">— </span>
-              {item.category}
+                category name is. From md up the label never wraps (w-44
+                fits the longest names). On phones the column is narrower
+                (w-36) to leave the values more room, so a long name like
+                "Payment Gateways" wraps onto a second line instead of
+                running into its values; pr-3 keeps a gap between the two. */}
+            <span className="flex w-36 flex-shrink-0 pr-3 text-base text-white md:w-44 md:whitespace-nowrap">
+              {/* The dash is its own flex item, so a wrapped category name
+                  lines up under its first word, not under the dash. */}
+              <span className="flex-shrink-0 whitespace-pre text-red">— </span>
+              <span>{item.category}</span>
             </span>
             <span className="text-sm leading-relaxed text-chalk-dim">
               {item.values}
