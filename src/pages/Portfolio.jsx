@@ -135,7 +135,16 @@ function Portfolio() {
       // overflow hidden (see styles/index.css), so the wrapper must be
       // capped at <main>'s height for overflow-y-auto to kick in —
       // otherwise the content just spills out under the footer.
-      <div ref={scrollRef} className="h-full overflow-y-auto">
+      // pt-[var(--header-h)]: content starts below the floating Header but
+      // scrolls UNDER it, so when the Header slides away there's no gap.
+      // scroll-pt-[…]: section jumps (SectionNav) land below the Header.
+      // overscroll-contain: stops the scroll from chaining to the page at
+      // the ends, which caused rubber-band "stuck" moments on phones.
+      // (7rem is only a first-frame fallback before Header measures itself.)
+      <div
+        ref={scrollRef}
+        className="h-full overflow-y-auto overscroll-contain pt-[var(--header-h,7rem)] scroll-pt-[var(--header-h,7rem)]"
+      >
         {columns.map((col, i) => (
           <div key={col.id}>
             {col.content}

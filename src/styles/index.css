@@ -21,6 +21,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* The whole site renders at 90% scale — the look of browser zoom at 90%.
+   Tailwind sizes text, spacing and most element sizes in rem, and rem is
+   relative to this root font size, so everything shrinks together
+   (16px → 14.4px base). Screen-width breakpoints are in px and are NOT
+   affected, so layouts still switch at the same widths. */
+html {
+  font-size: 90%;
+}
+
 html,
 body,
 #root {

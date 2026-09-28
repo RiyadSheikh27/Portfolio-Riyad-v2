@@ -38,15 +38,24 @@ function Header() {
   const isMobile = useIsMobile()
   const hidden = useHideOnScroll(isMobile && openPanel === null)
 
-  // The header's current height, so hiding can pull it up by exactly that
-  // much (its height varies as its rows wrap on narrow screens).
+  // On phones the header floats OVER the page (absolute) instead of taking
+  // up layout space, so hiding it is a pure slide (transform) that never
+  // resizes the scrolling area. (An earlier version hid it with a negative
+  // margin; that resized the scroller mid-scroll, which jolted the scroll
+  // position, flipped the scroll direction, and made the header flicker
+  // in a loop at the bottom of the page — and stalled momentum scrolling.)
+  // The scrolling pages reserve room for it with `var(--header-h)`, which
+  // this effect keeps equal to the header's real height (it varies as its
+  // rows wrap on narrow screens).
   const headerRef = useRef(null)
-  const [height, setHeight] = useState(0)
   useEffect(() => {
-    // Side effect: keep `height` in sync with the rendered header.
+    // Side effect: publish the header's height as a CSS variable.
     const node = headerRef.current
     if (!node) return undefined
-    const observer = new ResizeObserver(() => setHeight(node.offsetHeight))
+    const root = document.documentElement
+    const observer = new ResizeObserver(() =>
+      root.style.setProperty('--header-h', `${node.offsetHeight}px`),
+    )
     observer.observe(node)
     return () => observer.disconnect()
   }, [])
@@ -62,14 +71,13 @@ function Header() {
     //     (toggles right-aligned), wrapping to a 3rd row on very narrow
     //     screens
     // `relative` makes the header the anchor for the phone dropdowns.
-    // Hiding uses a negative top margin (not a transform), so <main> below
-    // actually grows into the freed space instead of leaving a gap. The
-    // inline style is unavoidable here because the height is measured at
-    // runtime.
+    // Phones: absolutely positioned over the page and hidden by sliding up
+    // (-translate-y-full). md and up: back in the normal flow (relative).
     <header
       ref={headerRef}
-      style={{ marginTop: hidden ? -height : 0 }}
-      className="relative z-20 flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 transition-[margin] duration-300 ease-out motion-reduce:transition-none md:px-6 lg:h-20 lg:flex-nowrap lg:py-0"
+      className={`absolute inset-x-0 top-0 z-20 flex w-full flex-shrink-0 flex-wrap items-center gap-x-6 gap-y-3 border-b border-border bg-bg-header px-4 py-3 transition-transform duration-300 ease-out motion-reduce:transition-none md:relative md:px-6 lg:h-20 lg:flex-nowrap lg:py-0 ${
+        hidden ? '-translate-y-full' : 'translate-y-0'
+      }`}
     >
       {/* Left group: logo mark + Section 1 (name/role). */}
       <div className="flex items-center gap-4 md:gap-6">

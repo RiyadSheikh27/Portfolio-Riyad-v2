@@ -77,7 +77,7 @@ export default {
       },
       // Custom fixed heights referenced by the sticky Footer bar.
       height: {
-        footer: '42px',
+        footer: '2.625rem', // 42px at the default 16px root
       },
       // Soft halo around the availability status light, so the dot reads
       // as a glowing lamp rather than a flat circle.

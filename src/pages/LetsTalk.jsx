@@ -154,7 +154,9 @@ function LetsTalk() {
       }
 
   return (
-    <div className="flex h-full w-full items-center justify-center px-6">
+    // On phones the Header floats over <main>, so reserve its height; from
+    // md up it's back in the normal flow and no padding is needed.
+    <div className="flex h-full w-full items-center justify-center overflow-y-auto px-6 pt-[var(--header-h,7rem)] md:pt-0">
       {submitted ? (
         // Success state: shown instead of the form once all fields pass
         // validation. Animated in with a gentle scale + fade, per the

@@ -21,7 +21,8 @@ import Footer from '../footer/Footer'
 
 function AppLayout() {
   return (
-    <div className="flex h-screen w-screen supports-[height:100dvh]:h-dvh flex-col bg-bg text-chalk">
+    // `relative` anchors the Header, which floats over <main> on phones.
+    <div className="relative flex h-screen w-screen flex-col bg-bg text-chalk supports-[height:100dvh]:h-dvh">
       <Header />
       <main className="min-h-0 flex-1">
         <Outlet />
