@@ -26,12 +26,12 @@ function IntroSection() {
       initial={shouldReduceMotion ? false : { opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: ANIMATION_DURATION }}
-      className="space-y-4 p-6 box-decoration-clone"
+      className="space-y-3 px-6 py-5 box-decoration-clone"
     >
       <SectionLabel num={intro.sectionNum} name={intro.sectionName} />
       {/* hyphens-auto lets the browser split long words at line ends, which
           keeps justified text from opening wide gaps on narrow phones. */}
-      <p className="hyphens-auto text-justify text-base leading-relaxed text-chalk-dim">{intro.body}</p>
+      <p className="hyphens-auto text-justify text-base leading-normal text-chalk-dim">{intro.body}</p>
 
       {intro.quote && (
         <motion.blockquote
@@ -40,7 +40,7 @@ function IntroSection() {
           transition={{ duration: ANIMATION_DURATION, delay: STAGGER_DELAY }}
           className="break-inside-avoid rounded-lg border border-red/40 bg-red/5 px-5 py-4"
         >
-          <p className="text-center font-hand text-lg leading-relaxed text-chalk">
+          <p className="text-center font-hand text-lg leading-normal text-chalk">
             <span className="mr-1 text-2xl leading-none text-red">&ldquo;</span>
             {intro.quote}
             <span className="ml-1 text-2xl leading-none text-red">&rdquo;</span>

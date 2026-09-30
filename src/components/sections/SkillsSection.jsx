@@ -25,9 +25,9 @@ function SkillsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(skills.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(skills.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel num={skills.sectionNum} name={skills.sectionName} />
-      <div className="space-y-2.5">
+      <div className="space-y-2">
         {skills.items.map((item, index) => (
           <motion.div
             key={item.id}
@@ -52,7 +52,7 @@ function SkillsSection() {
               <span className="flex-shrink-0 whitespace-pre text-red">— </span>
               <span>{item.category}</span>
             </span>
-            <span className="text-sm leading-relaxed text-chalk-dim">
+            <span className="text-sm leading-normal text-chalk-dim">
               {item.values}
             </span>
           </motion.div>

@@ -21,6 +21,11 @@
 //      placed next to it in the Footer.
 //   2. The chat panel — a fixed popover that opens just above the footer.
 //
+// Other parts of the page can open the panel with openChatBot() — e.g. the
+// "Ask Riyad" button at the end of the Portfolio page. It dispatches a
+// window event this component listens for, so callers need no ref or
+// shared state (the panel's single instance lives in the Footer).
+//
 // Accessibility: the panel closes on Escape, the trigger exposes
 // aria-expanded, and users who prefer reduced motion get answers instantly
 // (no typing effect) and no open/close animation.
@@ -38,6 +43,15 @@ import {
   ATTENTION_INTERVAL,
   TYPING_SPEED,
 } from '../../constants'
+
+// Window event that opens the panel from anywhere (see openChatBot below).
+const OPEN_EVENT = 'chatbot:open'
+
+// Opens the ChatBot panel from any component.
+// eslint-disable-next-line react-refresh/only-export-components
+export function openChatBot() {
+  window.dispatchEvent(new Event(OPEN_EVENT))
+}
 
 // The id of the opening bot message, so it can be typed out on first open
 // just like any other answer.
@@ -207,6 +221,16 @@ function ChatBot() {
     // the panel opens (the list remounts at the top on every open).
     if (open) scrollToBottom()
   }, [messages, open])
+
+  useEffect(() => {
+    // Side effect: open the panel whenever openChatBot() is called
+    // elsewhere. Subscribed once for the component's lifetime.
+    function handleOpen() {
+      setOpen(true)
+    }
+    window.addEventListener(OPEN_EVENT, handleOpen)
+    return () => window.removeEventListener(OPEN_EVENT, handleOpen)
+  }, [])
 
   useEffect(() => {
     // Side effect: close the panel on Escape. Only listens while open.

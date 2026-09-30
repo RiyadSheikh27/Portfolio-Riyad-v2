@@ -19,7 +19,7 @@ function CPSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(competitiveProgramming.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(competitiveProgramming.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel
         num={competitiveProgramming.sectionNum}
         name={competitiveProgramming.sectionName}

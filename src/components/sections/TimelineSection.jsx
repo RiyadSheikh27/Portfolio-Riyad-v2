@@ -31,14 +31,14 @@ function TimelineSection({ data }) {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(data.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(data.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel num={data.sectionNum} name={data.sectionName} />
 
       {/* The vertical connector line is a single border-l on this wrapper
           (rather than a separate line element per entry) — every entry's
           red dot is then absolutely positioned to sit exactly on that one
           continuous line. */}
-      <div className="space-y-6 border-l border-border pl-5">
+      <div className="space-y-4 border-l border-border pl-5">
         {data.items.map((item, index) => (
           <motion.div
             key={item.id}
@@ -86,7 +86,7 @@ function TimelineSection({ data }) {
             )}
 
             {item.description && (
-              <p className="hyphens-auto text-justify text-sm leading-relaxed text-chalk-dim">
+              <p className="hyphens-auto text-justify text-sm leading-normal text-chalk-dim">
                 {item.description}
               </p>
             )}

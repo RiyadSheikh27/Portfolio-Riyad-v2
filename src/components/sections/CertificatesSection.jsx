@@ -20,7 +20,7 @@ function CertificatesSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(certificates.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(certificates.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel num={certificates.sectionNum} name={certificates.sectionName} />
 
       <div className="space-y-4">

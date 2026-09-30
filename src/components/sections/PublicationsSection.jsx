@@ -20,7 +20,7 @@ function PublicationsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(publications.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(publications.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel
         num={publications.sectionNum}
         name={publications.sectionName}
@@ -65,7 +65,7 @@ function PublicationsSection() {
                 </h3>
               )}
 
-              <p className="text-sm leading-relaxed text-chalk-dim">
+              <p className="text-sm leading-normal text-chalk-dim">
                 {item.journal}
               </p>
 

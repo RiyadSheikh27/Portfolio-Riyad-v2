@@ -14,7 +14,7 @@ import PropTypes from 'prop-types'
 
 function HyphenItem({ text }) {
   return (
-    <p className="text-base leading-relaxed text-chalk-dim">
+    <p className="text-base leading-normal text-chalk-dim">
       <span className="text-red">— </span>
       {text}
     </p>

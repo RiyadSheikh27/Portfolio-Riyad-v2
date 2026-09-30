@@ -8,7 +8,8 @@
 //   Col 2 — SkillsSection + CPSection + TimelineSection(education)
 //   Col 3 — ProjectsSection
 //   Col 4 — PublicationsSection + TimelineSection(extracurricular) +
-//           CertificatesSection + WritingSection
+//           CertificatesSection + WritingSection + ClosingCTA (the page's
+//           closing Let's talk / Ask Riyad buttons)
 // On mobile (useIsMobile), columns will stack vertically with Dividers
 // between them instead of sitting side by side.
 //
@@ -34,6 +35,7 @@ import ProjectsSection from '../components/sections/ProjectsSection'
 import WritingSection from '../components/sections/WritingSection'
 import PublicationsSection from '../components/sections/PublicationsSection'
 import CertificatesSection from '../components/sections/CertificatesSection'
+import ClosingCTA from '../components/sections/ClosingCTA'
 import Divider from '../components/ui/Divider'
 import { experience, education, extracurricular } from '../api'
 
@@ -124,6 +126,7 @@ function Portfolio() {
           <TimelineSection data={extracurricular} />
           <CertificatesSection />
           <WritingSection />
+          <ClosingCTA />
         </>
       ),
     },

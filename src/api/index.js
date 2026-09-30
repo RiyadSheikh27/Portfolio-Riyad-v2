@@ -23,6 +23,7 @@ export const writing = portfolioData.writing
 export const publications = portfolioData.publications
 export const extracurricular = portfolioData.extracurricular
 export const certificates = portfolioData.certificates
+export const closing = portfolioData.closing
 
 // Scripted Q&A for the footer ChatBot (components/sections/ChatBot.jsx).
 export const chatbot = chatbotData

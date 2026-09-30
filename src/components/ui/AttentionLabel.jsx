@@ -16,12 +16,20 @@
 //   trailing (node)      — optional element after the label (e.g. an arrow)
 //   delay    (number)    — seconds before the first nudge; used to offset
 //                          one trigger from another so they take turns
+//   iconClassName (string) — overrides the icon's glowing red-glow color,
+//                          e.g. for a filled red button where it'd vanish
 // -----------------------------------------------------------------------------
 import PropTypes from 'prop-types'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ATTENTION_INTERVAL, ATTENTION_DURATION } from '../../constants'
 
-function AttentionLabel({ icon: Icon, label, trailing = null, delay = 0 }) {
+function AttentionLabel({
+  icon: Icon,
+  label,
+  trailing = null,
+  delay = 0,
+  iconClassName = 'text-red-glow drop-shadow-glow',
+}) {
   const shouldReduceMotion = useReducedMotion()
 
   // Shared timing for the two nudge animations below, so the hop and the
@@ -51,7 +59,7 @@ function AttentionLabel({ icon: Icon, label, trailing = null, delay = 0 }) {
         }
         transition={transition}
       >
-        <Icon size={16} strokeWidth={2} className="text-red-glow drop-shadow-glow" />
+        <Icon size={16} strokeWidth={2} className={iconClassName} />
       </motion.span>
       {label}
       {trailing}
@@ -64,6 +72,7 @@ AttentionLabel.propTypes = {
   label: PropTypes.string.isRequired,
   trailing: PropTypes.node,
   delay: PropTypes.number,
+  iconClassName: PropTypes.string,
 }
 
 export default AttentionLabel

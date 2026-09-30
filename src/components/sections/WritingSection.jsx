@@ -18,7 +18,7 @@ function WritingSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(writing.sectionName)} className="space-y-4 p-6 box-decoration-clone">
+    <div id={toSectionId(writing.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel num={writing.sectionNum} name={writing.sectionName} />
 
       <div className="space-y-4">
@@ -48,7 +48,7 @@ function WritingSection() {
             ) : (
               <h3 className="text-base font-medium text-chalk">{item.title}</h3>
             )}
-            <p className="hyphens-auto text-justify text-sm leading-relaxed text-chalk-dim">
+            <p className="hyphens-auto text-justify text-sm leading-normal text-chalk-dim">
               {item.body}
             </p>
           </motion.div>

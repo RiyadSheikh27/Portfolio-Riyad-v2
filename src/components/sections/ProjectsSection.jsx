@@ -25,10 +25,10 @@ function ProjectsSection() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div id={toSectionId(projects.sectionName)} className="space-y-6 p-6 box-decoration-clone">
+    <div id={toSectionId(projects.sectionName)} className="space-y-3 px-6 py-5 box-decoration-clone">
       <SectionLabel num={projects.sectionNum} name={projects.sectionName} />
 
-      <div className="space-y-6">
+      <div className="space-y-4">
         {projects.items.map((item, index) => (
           <motion.div
             key={item.id}
@@ -38,7 +38,7 @@ function ProjectsSection() {
               duration: ANIMATION_DURATION,
               delay: index * STAGGER_DELAY,
             }}
-            className="space-y-2"
+            className="space-y-1"
           >
             <div className="flex break-after-avoid items-baseline gap-2">
               <span className="text-sm font-semibold text-red">{toRoman(index + 1)}.</span>
@@ -57,7 +57,7 @@ function ProjectsSection() {
               {item.type}
             </div>
 
-            <p className="hyphens-auto text-justify text-sm leading-relaxed text-chalk-dim">
+            <p className="hyphens-auto text-justify text-sm leading-normal text-chalk-dim">
               {item.description}
             </p>
 
