@@ -8,9 +8,10 @@
 # Netlify's secret scanner fails the build if a secret variable's value
 # appears in the repo or build output. GMAIL_USER and CONTACT_TO are just
 # email addresses, and CONTACT_TO is intentionally public (it's on the
-# site). Only GMAIL_APP_PASSWORD is a real secret, and it stays scanned.
+# site). ADMIN_USERNAME is an identifier, not a credential. Passwords stay
+# scanned so an actual credential accidentally committed to the repo fails.
 [build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "GMAIL_USER,CONTACT_TO"
+  SECRETS_SCAN_OMIT_KEYS = "GMAIL_USER,CONTACT_TO,ADMIN_USERNAME"
 
 [functions]
   directory = "netlify/functions"
