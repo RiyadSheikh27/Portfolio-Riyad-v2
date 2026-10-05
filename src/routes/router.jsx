@@ -13,8 +13,10 @@ import { createBrowserRouter } from 'react-router-dom'
 import AppLayout from '../components/layout/AppLayout'
 import Portfolio from '../pages/Portfolio'
 import LetsTalk from '../pages/LetsTalk'
+import AdminRoute from '../pages/AdminRoute'
 
 export const router = createBrowserRouter([
+  { path: '/admin', element: <AdminRoute /> },
   {
     element: <AppLayout />,
     children: [

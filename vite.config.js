@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, loadEnv } from 'vite'
+import { resolve } from 'node:path'
 
 // Dev-only: serve the contact form's /api/contact endpoint from the Vite dev
 // server, so the form works under plain `npm run dev` (which otherwise knows
@@ -15,6 +16,7 @@ function contactApiDevServer() {
       // Load every variable from .env (the '' prefix means "not just VITE_*")
       // into process.env, where the function reads them. Server-side only.
       Object.assign(process.env, loadEnv(server.config.mode, process.cwd(), ''))
+      process.env.ADMIN_LOCAL_DATA_PATH = resolve(process.cwd(), '.admin-data.json')
 
       server.middlewares.use('/api/contact', async (req, res) => {
         try {
@@ -40,6 +42,28 @@ function contactApiDevServer() {
           res.statusCode = 500
           res.setHeader('Content-Type', 'application/json')
           res.end(JSON.stringify({ error: 'Local contact handler crashed — see the terminal.' }))
+        }
+      })
+
+      server.middlewares.use('/api/admin', async (req, res) => {
+        try {
+          const { default: handler } = await server.ssrLoadModule('/netlify/functions/admin.mjs')
+          const chunks = []
+          for await (const chunk of req) chunks.push(chunk)
+          const request = new Request(`http://localhost${req.originalUrl}`, {
+            method: req.method,
+            headers: req.headers,
+            body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(chunks),
+          })
+          const response = await handler(request)
+          res.statusCode = response.status
+          response.headers.forEach((value, key) => res.setHeader(key, value))
+          res.end(await response.text())
+        } catch (error) {
+          console.error('admin-api-dev-server:', error)
+          res.statusCode = 500
+          res.setHeader('Content-Type', 'application/json')
+          res.end(JSON.stringify({ error: 'Local admin handler crashed — see the terminal.' }))
         }
       })
     },
