@@ -4,7 +4,7 @@
 
 The `/admin` route is protected by a server-side username and password. For local development, copy `.env.example` to `.env` and set `ADMIN_USERNAME`, `ADMIN_PASSWORD`, and a long random `ADMIN_SESSION_SECRET`. The Vite development server runs the same Netlify Function used in production; local records are kept in the ignored `.admin-data.json` file.
 
-For Netlify, add those three values under **Site configuration → Environment variables** and redeploy. Admin records are stored in the Netlify Blobs store named `riyad-admin`, shared across signed-in sessions. Never prefix these credentials with `VITE_`; they must remain server-side.
+For Netlify, add `ADMIN_USERNAME` and `ADMIN_PASSWORD` under **Site configuration → Environment variables**. Ensure both variables are available to **Functions** and to the deploy context serving the site (usually **Production**); then trigger a new deploy so the function receives them. `ADMIN_SESSION_SECRET` is optional in production; when omitted, the password is used to sign sessions. Admin records are stored in the Netlify Blobs store named `riyad-admin`, shared across signed-in sessions. Never prefix these credentials with `VITE_`; they must remain server-side.
 
 The admin session is an HttpOnly, SameSite cookie that expires after eight hours. Changing `ADMIN_PASSWORD` or `ADMIN_SESSION_SECRET` invalidates existing sessions.
 

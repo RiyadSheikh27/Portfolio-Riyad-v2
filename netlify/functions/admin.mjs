@@ -106,9 +106,12 @@ function validState(state) {
 
 export default async function handler(request) {
   const { username, password } = credentials()
-  if (!username || !password) {
-    console.error('admin: ADMIN_USERNAME and ADMIN_PASSWORD must be configured')
-    return json(503, { error: 'Admin access is not configured on the server.' })
+  const missingCredentials = Object.entries({ ADMIN_USERNAME: username, ADMIN_PASSWORD: password })
+    .filter(([, value]) => !value)
+    .map(([name]) => name)
+  if (missingCredentials.length > 0) {
+    console.error(`admin: missing environment variables: ${missingCredentials.join(', ')}`)
+    return json(503, { error: `Admin access is not configured on the server. Missing: ${missingCredentials.join(', ')}.` })
   }
 
   if (request.method === 'POST') {
