@@ -30,3 +30,11 @@ export const TYPING_SPEED = 18
 // nav and social links expand INLINE in the header row; below it, they
 // open as dropdowns instead (there isn't room for them inline).
 export const HEADER_INLINE_BREAKPOINT = 1280
+
+// WelcomeCard (the photo dealt onto the screen on first load):
+// seconds the card takes to fly in and flip, how many embers burst out
+// when it lands, and how long (ms) to wait for the photo before dealing
+// anyway on a slow connection.
+export const WELCOME_DEAL_DURATION = 1.6
+export const WELCOME_EMBER_COUNT = 28
+export const WELCOME_IMAGE_TIMEOUT = 2500

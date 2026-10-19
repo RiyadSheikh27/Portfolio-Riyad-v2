@@ -12,14 +12,25 @@
 // behind the browser's address bar, which pushed the Footer off-screen.
 // dvh tracks the actually visible height, so the Footer always shows.
 //
+// It also shows the WelcomeCard (Riyad's photo, dealt onto the screen)
+// when the site is first opened on the home page. The check runs once, at
+// mount, and AppLayout stays mounted across route changes — so moving to
+// /lets-talk and back never replays it, and a direct link to /lets-talk
+// skips it entirely.
+//
 // This component takes no props: it's a pure structural shell driven by
 // whichever child route React Router decides to render.
 // -----------------------------------------------------------------------------
-import { Outlet } from 'react-router-dom'
+import { useState } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../header/Header'
 import Footer from '../footer/Footer'
+import WelcomeCard from './WelcomeCard'
 
 function AppLayout() {
+  const { pathname } = useLocation()
+  const [showWelcome, setShowWelcome] = useState(() => pathname === '/')
+
   return (
     // `relative` anchors the Header, which floats over <main> on phones.
     <div className="relative flex h-screen w-screen flex-col bg-bg text-chalk supports-[height:100dvh]:h-dvh">
@@ -28,6 +39,7 @@ function AppLayout() {
         <Outlet />
       </main>
       <Footer />
+      {showWelcome && <WelcomeCard onClose={() => setShowWelcome(false)} />}
     </div>
   )
 }
